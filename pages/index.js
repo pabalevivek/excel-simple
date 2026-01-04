@@ -30,7 +30,7 @@ export default function Home({ tools, sidebarData }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [openCategories, setOpenCategories] = useState({});
   const [expandedPrompt, setExpandedPrompt] = useState(null);
-  const [showOptimizer, setShowOptimizer] = useState(false); // Toggle for Widget
+  const [showOptimizer, setShowOptimizer] = useState(true); // Default OPEN for visibility
   
   // Optimizer State
   const [optInput, setOptInput] = useState('');
@@ -70,13 +70,14 @@ export default function Home({ tools, sidebarData }) {
     alert("Copied to clipboard!");
   };
 
-  // --- OPTIMIZER LOGIC ---
+  // --- OPTIMIZER LOGIC (Hidden High Effort) ---
   const handleOptimize = () => {
     if (!optInput) return;
     setIsOptimizing(true);
     setTimeout(() => {
       let refinedPrompt = `You are an expert AI assistant. `;
       refinedPrompt += `Your task is to: ${optInput}.\n\n`;
+      // High Effort Logic Applied silently
       refinedPrompt += `[System: reasoning_effort = xhigh]\nPlan step-by-step. Analyze edge cases before answering.\n`;
       refinedPrompt += `\nOutput Format:\n1. Summary\n2. Detailed Execution\n3. Code/Examples`;
       
@@ -149,13 +150,9 @@ export default function Home({ tools, sidebarData }) {
         }
 
         .tool-card:hover { transform: translateY(-3px); box-shadow: 0 10px 20px -5px rgba(0,0,0,0.1); }
-
-        /* Animation for Widget */
-        .widget-enter { animation: slideDown 0.3s ease-out; }
-        @keyframes slideDown {
-          from { opacity: 0; transform: translateY(-10px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
+        
+        /* Optimizer Animations */
+        @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
       `}</style>
 
       {/* --- MOBILE HEADER --- */}
@@ -169,7 +166,7 @@ export default function Home({ tools, sidebarData }) {
         <div onClick={() => setIsSidebarOpen(false)} style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.5)', zIndex: 95, backdropFilter: 'blur(2px)' }} className="mobile-only"></div>
       )}
 
-      {/* --- LEFT SIDEBAR (LIBRARY ONLY) --- */}
+      {/* --- LEFT SIDEBAR (LIBRARY) --- */}
       <aside className={`sidebar-container ${isSidebarOpen ? 'open' : ''}`}>
         <div style={{ padding: '20px 24px', borderBottom: '1px solid #1e293b', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
@@ -179,7 +176,6 @@ export default function Home({ tools, sidebarData }) {
           <button onClick={() => setIsSidebarOpen(false)} className="mobile-only" style={{ background: 'transparent', border: 'none', color: 'white', fontSize: '1.2rem' }}>✕</button>
         </div>
 
-        {/* PROMPT LIBRARY */}
         <div style={{ flex: 1, paddingTop: '10px' }}>
           <div style={{ padding: '0 24px 10px', fontSize: '0.7rem', color: '#64748b', fontWeight: 'bold', letterSpacing: '1px' }}>PROMPT LIBRARY</div>
           {sidebarData && sidebarData.map((group, idx) => (
@@ -212,74 +208,106 @@ export default function Home({ tools, sidebarData }) {
         
         {/* HERO SECTION */}
         <div style={{ maxWidth: '900px', margin: '20px auto 40px', textAlign: 'center' }}>
-          <h1 style={{ fontSize: '2.5rem', fontWeight: '800', color: '#0f172a', marginBottom: '15px', letterSpacing: '-1px' }}>
+          <h1 style={{ fontSize: '2.8rem', fontWeight: '800', color: '#0f172a', marginBottom: '15px', letterSpacing: '-1.5px' }}>
             Find the Perfect Model
           </h1>
           
-          <div style={{ display: 'flex', gap: '15px', flexDirection: 'column', alignItems: 'center' }}>
+          <div style={{ display: 'flex', gap: '25px', flexDirection: 'column', alignItems: 'center' }}>
             
             {/* 1. Main Search Bar */}
-            <div style={{ display: 'flex', width: '100%', background: 'white', padding: '6px', borderRadius: '50px', boxShadow: '0 10px 30px rgba(0,0,0,0.08)', border: '1px solid #e2e8f0' }}>
-              <input type="text" placeholder="Search 200+ models..." value={mainQuery} onChange={(e) => setMainQuery(e.target.value)} style={{ flex: 1, padding: '12px 20px', borderRadius: '50px', border: 'none', outline: 'none', fontSize: '1rem', minWidth: '0' }} />
-              <button style={{ background: '#0f172a', color: 'white', border: 'none', padding: '12px 30px', borderRadius: '40px', fontWeight: 'bold', fontSize: '0.9rem', cursor: 'pointer' }}>Search</button>
+            <div style={{ display: 'flex', width: '100%', background: 'white', padding: '8px', borderRadius: '50px', boxShadow: '0 10px 40px rgba(0,0,0,0.08)', border: '1px solid #e2e8f0' }}>
+              <input type="text" placeholder="Search 200+ models..." value={mainQuery} onChange={(e) => setMainQuery(e.target.value)} style={{ flex: 1, padding: '12px 25px', borderRadius: '50px', border: 'none', outline: 'none', fontSize: '1.1rem', minWidth: '0' }} />
+              <button style={{ background: '#0f172a', color: 'white', border: 'none', padding: '12px 35px', borderRadius: '40px', fontWeight: 'bold', fontSize: '1rem', cursor: 'pointer' }}>Search</button>
             </div>
             
-            {/* 2. Prompt Optimizer Button */}
-            <button 
-              onClick={() => setShowOptimizer(!showOptimizer)}
-              style={{ 
-                padding: '10px 25px', background: showOptimizer ? '#1e293b' : 'linear-gradient(to right, #2563eb, #9333ea)', 
-                color: 'white', border: 'none', borderRadius: '30px', fontWeight: 'bold', 
-                fontSize: '0.9rem', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px',
-                boxShadow: '0 4px 15px rgba(37, 99, 235, 0.3)', transition: 'all 0.2s'
-              }}
-            >
-              <span>{showOptimizer ? '✕ Close' : '✨ Prompt Optimizer'}</span>
-            </button>
+            {/* 2. PROMPT OPTIMIZER SECTION (FEATURE CARD) */}
+            <div style={{ width: '100%', maxWidth: '800px', margin: '0 auto' }}>
+              
+              {/* TRIGGER HEADER */}
+              <button 
+                onClick={() => setShowOptimizer(!showOptimizer)}
+                style={{ 
+                  width: '100%', 
+                  padding: '18px 25px', 
+                  background: 'linear-gradient(135deg, #1e293b 0%, #0f172a 100%)', 
+                  color: 'white', 
+                  border: '1px solid #334155', 
+                  borderRadius: showOptimizer ? '20px 20px 0 0' : '20px', // Round top only if open
+                  cursor: 'pointer', 
+                  display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '15px',
+                  boxShadow: '0 10px 30px rgba(0,0,0,0.15)',
+                  transition: 'all 0.2s ease'
+                }}
+              >
+                <span style={{ fontSize: '1.5rem' }}>✨</span>
+                <span style={{ 
+                  fontSize: '1.3rem', 
+                  fontWeight: '900', 
+                  background: 'linear-gradient(to right, #60a5fa, #c084fc)', 
+                  WebkitBackgroundClip: 'text', 
+                  WebkitTextFillColor: 'transparent',
+                  textTransform: 'uppercase',
+                  letterSpacing: '1.5px'
+                }}>
+                  Prompt Optimizer
+                </span>
+                <span style={{ marginLeft: 'auto', color: '#94a3b8', fontSize: '1.2rem' }}>
+                  {showOptimizer ? '▲' : '▼'}
+                </span>
+              </button>
 
-            {/* 3. Expandable Optimizer Widget */}
-            {showOptimizer && (
-              <div className="widget-enter" style={{ width: '100%', maxWidth: '600px', background: '#1e293b', borderRadius: '16px', padding: '20px', color: 'white', boxShadow: '0 20px 40px rgba(0,0,0,0.2)', marginTop: '10px', textAlign: 'left', border: '1px solid #334155' }}>
-                
-                {!optOutput ? (
-                  <>
-                    <label style={{ fontSize: '0.8rem', color: '#94a3b8', fontWeight: 'bold', marginBottom: '8px', display: 'block' }}>WHAT DO YOU WANT TO CREATE?</label>
-                    <textarea 
-                      placeholder="Write here..." 
-                      value={optInput}
-                      onChange={(e) => setOptInput(e.target.value)}
-                      style={{ 
-                        width: '100%', height: '80px', padding: '12px', borderRadius: '8px', 
-                        border: '1px solid #334155', background: '#0f172a', color: 'white', 
-                        fontSize: '0.9rem', marginBottom: '15px', fontFamily: 'inherit', resize: 'none'
-                      }}
-                    />
-                    
-                    {/* "High Effort" logic is active, but button is HIDDEN as requested */}
-                    
-                    <button 
-                      onClick={handleOptimize} 
-                      style={{ 
-                        width: '100%', padding: '12px', background: 'white', border: 'none', 
-                        borderRadius: '8px', color: '#0f172a', fontWeight: '800', cursor: 'pointer', fontSize: '0.9rem' 
-                      }}
-                    >
-                      {isOptimizing ? 'Optimizing...' : 'Generate Pro Prompt'}
-                    </button>
-                  </>
-                ) : (
-                  <div>
-                    <div style={{ background: '#0f172a', padding: '15px', borderRadius: '10px', marginBottom: '15px', maxHeight: '200px', overflowY: 'auto', fontSize: '0.85rem', lineHeight: '1.6', border: '1px solid #334155', whiteSpace: 'pre-wrap' }}>
-                      {optOutput}
+              {/* EXPANDABLE CONTENT */}
+              {showOptimizer && (
+                <div style={{ 
+                  background: '#1e293b', 
+                  padding: '25px', 
+                  borderRadius: '0 0 20px 20px', 
+                  border: '1px solid #334155', 
+                  borderTop: 'none',
+                  animation: 'slideDown 0.3s ease-out',
+                  textAlign: 'left'
+                }}>
+                  
+                  {!optOutput ? (
+                    <>
+                      <textarea 
+                        placeholder="Write here... (e.g. 'Build a python snake game')" 
+                        value={optInput}
+                        onChange={(e) => setOptInput(e.target.value)}
+                        style={{ 
+                          width: '100%', height: '100px', padding: '15px', borderRadius: '12px', 
+                          border: '1px solid #334155', background: '#0f172a', color: 'white', 
+                          fontSize: '1rem', marginBottom: '20px', fontFamily: 'inherit', resize: 'none',
+                          outline: 'none'
+                        }}
+                      />
+                      <button 
+                        onClick={handleOptimize} 
+                        style={{ 
+                          width: '100%', padding: '15px', background: 'white', border: 'none', 
+                          borderRadius: '12px', color: '#0f172a', fontWeight: '800', cursor: 'pointer', 
+                          fontSize: '1rem', transition: 'filter 0.2s', boxShadow: '0 4px 15px rgba(255,255,255,0.1)'
+                        }}
+                        onMouseOver={(e) => e.target.style.filter = 'brightness(0.9)'}
+                        onMouseOut={(e) => e.target.style.filter = 'brightness(1)'}
+                      >
+                        {isOptimizing ? 'Optimizing...' : 'Generate Pro Prompt'}
+                      </button>
+                    </>
+                  ) : (
+                    <div>
+                      <div style={{ background: '#0f172a', padding: '20px', borderRadius: '12px', marginBottom: '20px', maxHeight: '300px', overflowY: 'auto', fontSize: '0.95rem', lineHeight: '1.6', border: '1px solid #334155', color: '#cbd5e1', whiteSpace: 'pre-wrap' }}>
+                        {optOutput}
+                      </div>
+                      <div style={{ display: 'flex', gap: '15px' }}>
+                        <button onClick={() => copyToClipboard(optOutput)} style={{ flex: 1, padding: '12px', background: '#10b981', border: 'none', borderRadius: '10px', color: 'white', fontWeight: 'bold', cursor: 'pointer', fontSize: '1rem' }}>Copy</button>
+                        <button onClick={() => { setOptOutput(''); setOptInput(''); }} style={{ flex: 1, padding: '12px', background: '#334155', border: 'none', borderRadius: '10px', color: 'white', fontWeight: 'bold', cursor: 'pointer', fontSize: '1rem' }}>New</button>
+                      </div>
                     </div>
-                    <div style={{ display: 'flex', gap: '10px' }}>
-                      <button onClick={() => copyToClipboard(optOutput)} style={{ flex: 1, padding: '10px', background: '#10b981', border: 'none', borderRadius: '6px', color: 'white', fontWeight: 'bold', cursor: 'pointer', fontSize: '0.85rem' }}>Copy</button>
-                      <button onClick={() => { setOptOutput(''); setOptInput(''); }} style={{ flex: 1, padding: '10px', background: '#334155', border: 'none', borderRadius: '6px', color: 'white', fontWeight: 'bold', cursor: 'pointer', fontSize: '0.85rem' }}>Reset</button>
-                    </div>
-                  </div>
-                )}
-              </div>
-            )}
+                  )}
+                </div>
+              )}
+            </div>
 
           </div>
         </div>
@@ -288,26 +316,26 @@ export default function Home({ tools, sidebarData }) {
         <div style={{ display: 'flex', gap: '10px', overflowX: 'auto', paddingBottom: '15px', marginBottom: '20px', justifyContent: 'flex-start', scrollbarWidth: 'none' }}>
           {categories.map(cat => (
             <button key={cat.id} onClick={() => setActiveCategory(cat.id)}
-              style={{ padding: '8px 16px', borderRadius: '25px', border: 'none', background: activeCategory === cat.id ? cat.solid : 'white', color: activeCategory === cat.id ? 'white' : '#64748b', fontWeight: '700', cursor: 'pointer', whiteSpace: 'nowrap', boxShadow: '0 2px 10px rgba(0,0,0,0.05)', transition: 'all 0.2s', fontSize: '0.85rem' }}>
-              <span style={{ marginRight: '6px' }}>{cat.icon}</span> {cat.id}
+              style={{ padding: '10px 20px', borderRadius: '25px', border: 'none', background: activeCategory === cat.id ? cat.solid : 'white', color: activeCategory === cat.id ? 'white' : '#64748b', fontWeight: '700', cursor: 'pointer', whiteSpace: 'nowrap', boxShadow: '0 2px 10px rgba(0,0,0,0.05)', transition: 'all 0.2s', fontSize: '0.9rem' }}>
+              <span style={{ marginRight: '8px' }}>{cat.icon}</span> {cat.id}
             </button>
           ))}
         </div>
 
         {/* GRID */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '20px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '25px' }}>
           {filteredTools.map((item) => {
             const theme = getConfig(item.category);
             return (
               <Link href={`/formula/${item.slug}`} key={item.slug} style={{ textDecoration: 'none' }}>
-                <div className="tool-card" style={{ background: 'white', borderRadius: '16px', padding: '20px', border: `1px solid ${theme.solid}15`, height: '100%', display: 'flex', flexDirection: 'column', transition: 'all 0.2s' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '12px' }}>
-                    <span style={{ fontSize: '0.7rem', fontWeight: '800', color: theme.solid, background: theme.soft, padding: '5px 10px', borderRadius: '20px', textTransform: 'uppercase' }}>{theme.icon} {item.category}</span>
-                    {item.is_multimodal && <span style={{ fontSize: '0.65rem', background: '#0f172a', color: 'white', padding: '4px 8px', borderRadius: '6px', fontWeight: 'bold' }}>PRO</span>}
+                <div className="tool-card" style={{ background: 'white', borderRadius: '20px', padding: '25px', border: `1px solid ${theme.solid}15`, height: '100%', display: 'flex', flexDirection: 'column', transition: 'all 0.2s' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '15px' }}>
+                    <span style={{ fontSize: '0.75rem', fontWeight: '800', color: theme.solid, background: theme.soft, padding: '5px 12px', borderRadius: '20px', textTransform: 'uppercase' }}>{theme.icon} {item.category}</span>
+                    {item.is_multimodal && <span style={{ fontSize: '0.7rem', background: '#0f172a', color: 'white', padding: '5px 10px', borderRadius: '8px', fontWeight: 'bold' }}>PRO</span>}
                   </div>
-                  <h3 style={{ margin: '0 0 8px', fontSize: '1.2rem', fontWeight: '700', color: '#1e293b' }}>{item.title}</h3>
-                  <p style={{ color: '#64748b', fontSize: '0.9rem', marginBottom: '20px', flex: 1, lineHeight: '1.5' }}>{item.problem}</p>
-                  <div style={{ background: theme.solid, color: 'white', textAlign: 'center', padding: '10px', borderRadius: '10px', fontWeight: '700', fontSize: '0.9rem' }}>Use {item.model_name} →</div>
+                  <h3 style={{ margin: '0 0 10px', fontSize: '1.4rem', fontWeight: '700', color: '#1e293b' }}>{item.title}</h3>
+                  <p style={{ color: '#64748b', fontSize: '0.95rem', marginBottom: '25px', flex: 1, lineHeight: '1.6' }}>{item.problem}</p>
+                  <div style={{ background: theme.solid, color: 'white', textAlign: 'center', padding: '12px', borderRadius: '12px', fontWeight: '700', fontSize: '0.95rem' }}>Use {item.model_name} →</div>
                 </div>
               </Link>
             );
