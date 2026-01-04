@@ -217,4 +217,3 @@ export default function Home({ tools }) {
     </div>
   );
 }
-
