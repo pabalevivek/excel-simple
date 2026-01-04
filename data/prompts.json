@@ -7,7 +7,8 @@
     "solution": "The flagship model with high reasoning effort.",
     "model_name": "GPT-5",
     "model_link": "https://openai.com",
-    "prompt": "<instruction>Reasoning_effort: High. Solve this complex logic puzzle.</instruction>"
+    "prompt": "<instruction>Reasoning_effort: High. Solve this complex logic puzzle.</instruction>",
+    "is_multimodal": true
   },
   {
     "slug": "gpt-5-nano",
@@ -20,6 +21,50 @@
     "prompt": "<instruction>Fix this JSON syntax error instantly.</instruction>"
   },
   {
+    "slug": "gemini-1-5-pro",
+    "category": "Business",
+    "title": "Gemini 1.5 Pro",
+    "problem": "Need to analyze a 1-hour video or 1000 files?",
+    "solution": "Massive context window (1M+ tokens).",
+    "model_name": "Gemini",
+    "model_link": "https://gemini.google.com",
+    "prompt": "<instruction>Upload video -> 'Explain the key events'</instruction>",
+    "is_multimodal": true
+  },
+  {
+    "slug": "claude-3-5-sonnet",
+    "category": "Coding",
+    "title": "Claude 3.5 Sonnet",
+    "problem": "Need human-like coding and writing?",
+    "solution": "Best-in-class for one-shot coding success.",
+    "model_name": "Claude",
+    "model_link": "https://claude.ai",
+    "prompt": "<instruction>Build a React component for a dashboard.</instruction>",
+    "is_multimodal": true
+  },
+  {
+    "slug": "chatgpt-4o",
+    "category": "Writing",
+    "title": "ChatGPT (GPT-4o)",
+    "problem": "Need the best all-around assistant?",
+    "solution": "The gold standard for writing, vision, and voice.",
+    "model_name": "GPT-4o",
+    "model_link": "https://chatgpt.com",
+    "prompt": "<instruction>Ask: 'Help me plan a marketing strategy'</instruction>",
+    "is_multimodal": true
+  },
+  {
+    "slug": "perplexity",
+    "category": "Research",
+    "title": "Perplexity",
+    "problem": "Search with citations?",
+    "solution": "Replaces Google with cited answers.",
+    "model_name": "Perplexity",
+    "model_link": "https://perplexity.ai",
+    "prompt": "<instruction>Find the best laptop under $1000 in 2025.</instruction>",
+    "is_multimodal": true
+  },
+  {
     "slug": "deepseek-r1",
     "category": "Coding",
     "title": "DeepSeek R1",
@@ -30,26 +75,6 @@
     "prompt": "<instruction>Optimize this Python script for O(n) complexity.</instruction>"
   },
   {
-    "slug": "gemini-1-5-pro",
-    "category": "Business",
-    "title": "Gemini 1.5 Pro",
-    "problem": "Need to analyze a 1-hour video or 1000 files?",
-    "solution": "Massive context window (1M+ tokens).",
-    "model_name": "Gemini",
-    "model_link": "https://gemini.google.com",
-    "prompt": "<instruction>Upload video -> 'Explain the key events'</instruction>"
-  },
-  {
-    "slug": "claude-3-5-sonnet",
-    "category": "Coding",
-    "title": "Claude 3.5 Sonnet",
-    "problem": "Need human-like coding and writing?",
-    "solution": "Best-in-class for one-shot coding success.",
-    "model_name": "Claude",
-    "model_link": "https://claude.ai",
-    "prompt": "<instruction>Build a React component for a dashboard.</instruction>"
-  },
-  {
     "slug": "grok-3",
     "category": "Research",
     "title": "Grok 3 (xAI)",
@@ -58,16 +83,6 @@
     "model_name": "Grok",
     "model_link": "https://grok.com",
     "prompt": "<instruction>What is the latest breaking news on [TOPIC]?</instruction>"
-  },
-  {
-    "slug": "notebook-lm",
-    "category": "Research",
-    "title": "NotebookLM",
-    "problem": "Need to study complex PDFs?",
-    "solution": "Turns docs into audio podcasts and summaries.",
-    "model_name": "NotebookLM",
-    "model_link": "https://notebooklm.google.com",
-    "prompt": "<instruction>Upload PDF -> 'Generate Audio Overview'</instruction>"
   },
   {
     "slug": "midjourney-v6",
@@ -120,24 +135,14 @@
     "prompt": "<instruction>A blues rock song about coding.</instruction>"
   },
   {
-    "slug": "udio",
-    "category": "Music",
-    "title": "Udio",
-    "problem": "High-fidelity music creation?",
-    "solution": "Complex musical compositions.",
-    "model_name": "Udio",
-    "model_link": "https://udio.com",
-    "prompt": "<instruction>Classical symphony in C major.</instruction>"
-  },
-  {
-    "slug": "perplexity",
+    "slug": "notebook-lm",
     "category": "Research",
-    "title": "Perplexity",
-    "problem": "Search with citations?",
-    "solution": "Replaces Google with cited answers.",
-    "model_name": "Perplexity",
-    "model_link": "https://perplexity.ai",
-    "prompt": "<instruction>Find the best laptop under $1000 in 2025.</instruction>"
+    "title": "NotebookLM",
+    "problem": "Need to study complex PDFs?",
+    "solution": "Turns docs into audio podcasts and summaries.",
+    "model_name": "NotebookLM",
+    "model_link": "https://notebooklm.google.com",
+    "prompt": "<instruction>Upload PDF -> 'Generate Audio Overview'</instruction>"
   },
   {
     "slug": "cursor",
@@ -200,16 +205,6 @@
     "prompt": "<instruction>A neon sign that says 'AI REVOLUTION'.</instruction>"
   },
   {
-    "slug": "krea",
-    "category": "Image",
-    "title": "Krea AI",
-    "problem": "Real-time drawing?",
-    "solution": "Draw shapes, get instant art.",
-    "model_name": "Krea",
-    "model_link": "https://krea.ai",
-    "prompt": "<instruction>Turn my sketch into a realistic landscape.</instruction>"
-  },
-  {
     "slug": "luma-dream-machine",
     "category": "Video",
     "title": "Luma Dream Machine",
@@ -218,36 +213,6 @@
     "model_name": "Luma",
     "model_link": "https://lumalabs.ai",
     "prompt": "<instruction>A monster truck jumping over a bus.</instruction>"
-  },
-  {
-    "slug": "luma-genie",
-    "category": "3D",
-    "title": "Luma Genie",
-    "problem": "Text to 3D models?",
-    "solution": "Generates 3D assets.",
-    "model_name": "Luma",
-    "model_link": "https://lumalabs.ai",
-    "prompt": "<instruction>A low-poly treasure chest.</instruction>"
-  },
-  {
-    "slug": "meshy",
-    "category": "3D",
-    "title": "Meshy",
-    "problem": "3D models for games?",
-    "solution": "Fast text-to-3D.",
-    "model_name": "Meshy",
-    "model_link": "https://meshy.ai",
-    "prompt": "<instruction>A futuristic helmet.</instruction>"
-  },
-  {
-    "slug": "spline-ai",
-    "category": "3D",
-    "title": "Spline AI",
-    "problem": "3D web design?",
-    "solution": "Generates 3D scenes for web.",
-    "model_name": "Spline",
-    "model_link": "https://spline.design",
-    "prompt": "<instruction>Create a 3D room with lighting.</instruction>"
   },
   {
     "slug": "julius",
@@ -270,16 +235,6 @@
     "prompt": "<instruction>Summarize the action items from the meeting.</instruction>"
   },
   {
-    "slug": "fireflies",
-    "category": "Business",
-    "title": "Fireflies.ai",
-    "problem": "Meeting intelligence?",
-    "solution": "AI note taker for calls.",
-    "model_name": "Fireflies",
-    "model_link": "https://fireflies.ai",
-    "prompt": "<instruction>What did we decide about the budget?</instruction>"
-  },
-  {
     "slug": "descript",
     "category": "Video",
     "title": "Descript",
@@ -290,14 +245,24 @@
     "prompt": "<instruction>Remove all 'umms' and 'ahhs'.</instruction>"
   },
   {
-    "slug": "opus-clip",
-    "category": "Video",
-    "title": "Opus Clip",
-    "problem": "Viral shorts?",
-    "solution": "Long video to TikToks.",
-    "model_name": "Opus",
-    "model_link": "https://opus.pro",
-    "prompt": "<instruction>Get 5 viral clips from this YouTube link.</instruction>"
+    "slug": "play-ht",
+    "category": "Voice",
+    "title": "Play.ht",
+    "problem": "Ultra-realistic cloning?",
+    "solution": "Clones voices with emotion.",
+    "model_name": "PlayHT",
+    "model_link": "https://play.ht",
+    "prompt": "<instruction>Clone my voice from this audio file.</instruction>"
+  },
+  {
+    "slug": "photoroom",
+    "category": "Image",
+    "title": "PhotoRoom",
+    "problem": "Product photography?",
+    "solution": "AI backgrounds for products.",
+    "model_name": "PhotoRoom",
+    "model_link": "https://photoroom.com",
+    "prompt": "<instruction>Put this shoe on a marble table.</instruction>"
   },
   {
     "slug": "haiper-video",
@@ -328,16 +293,6 @@
     "model_name": "Domo",
     "model_link": "https://domoai.app",
     "prompt": "<instruction>Turn this video into Studio Ghibli style.</instruction>"
-  },
-  {
-    "slug": "play-ht",
-    "category": "Voice",
-    "title": "Play.ht",
-    "problem": "Ultra-realistic cloning?",
-    "solution": "Clones voices with emotion.",
-    "model_name": "PlayHT",
-    "model_link": "https://play.ht",
-    "prompt": "<instruction>Clone my voice from this audio file.</instruction>"
   },
   {
     "slug": "artbreeder",
@@ -378,16 +333,6 @@
     "model_name": "Clipdrop",
     "model_link": "https://clipdrop.co",
     "prompt": "<instruction>Relight this portrait from the left.</instruction>"
-  },
-  {
-    "slug": "photoroom",
-    "category": "Image",
-    "title": "PhotoRoom",
-    "problem": "Product photography?",
-    "solution": "AI backgrounds for products.",
-    "model_name": "PhotoRoom",
-    "model_link": "https://photoroom.com",
-    "prompt": "<instruction>Put this shoe on a marble table.</instruction>"
   },
   {
     "slug": "rytr",
@@ -550,3 +495,4 @@
     "prompt": "<instruction>Upload audio -> Remove 'uhms'.</instruction>"
   }
 ]
+
