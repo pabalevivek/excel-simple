@@ -1,50 +1,112 @@
 [
   {
-    "slug": "excel-expert-persona",
-    "category": "Excel",
-    "title": "Act as an Excel Expert",
-    "prompt": "You are an expert in Excel. I will give you a problem, and you will provide the most efficient formula to solve it. My first problem is: [INSERT PROBLEM HERE]",
-    "model_name": "ChatGPT",
-    "model_link": "https://chat.openai.com"
+    "slug": "grok-deep-research",
+    "category": "Research",
+    "title": "Grok: Deep Research Assistant",
+    "problem": "Need a research assistant who works 24/7 to make consultant-level reports?",
+    "solution": "Use Grok's 'DeepSearch' feature with high reasoning.",
+    "model_name": "Grok",
+    "model_link": "https://grok.com",
+    "prompt": "<system_context>\n  You are a Senior Strategy Consultant and PhD Researcher.\n  Your goal is to provide a comprehensive, data-backed market analysis.\n</system_context>\n\n<user_task>\n  Perform a 'DeepSearch' on: [INSERT TOPIC]\n  Produce a structured report covering: Market Size, Key Trends, and Competitor Analysis.\n</user_task>\n\n<controls>\n  **reasoning_effort:** high\n  (Verify all statistics against 3 independent sources.)\n  **verbosity:** high\n  (Detailed, academic tone.)\n</controls>"
   },
   {
-    "slug": "realistic-portrait",
-    "category": "Image Gen",
-    "title": "Ultra-Realistic Portrait",
-    "prompt": "Cinematic shot, 35mm lens, f/1.8, highly detailed portrait of a cyberpunk street vendor, neon rain, soft lighting, 8k resolution --v 6.0",
-    "model_name": "Midjourney",
-    "model_link": "https://discord.com/invite/midjourney"
+    "slug": "multi-ai-companion",
+    "category": "Productivity",
+    "title": "Multi: Model Comparator",
+    "problem": "Want to compare answers from GPT-4, Claude, and Gemini simultaneously?",
+    "solution": "Use Multi to run one prompt across 500+ models at once.",
+    "model_name": "Multi",
+    "model_link": "https://app.getmulti.ai",
+    "prompt": "<system_context>\n  You are an impartial Chief Technology Officer.\n  Your goal is to evaluate the same task across different AI architectures.\n</system_context>\n\n<user_task>\n  Execute this task: [INSERT TASK]\n  Compare the responses from GPT-4o, Claude 3.5, and Gemini 1.5 Pro.\n</user_task>\n\n<output_format>\n  Create a comparison table highlighting:\n  1. Accuracy\n  2. Creativity\n  3. Reasoning Flaws\n</output_format>"
   },
   {
-    "slug": "seo-blog-writer",
+    "slug": "wispr-flow-voice",
     "category": "Writing",
-    "title": "SEO Blog Post Writer",
-    "prompt": "Write a 1,000-word SEO-optimized blog post about [TOPIC]. Use H2 headers, a catchy title, and bullet points. Tone: Professional.",
-    "model_name": "Claude",
-    "model_link": "https://claude.ai"
+    "title": "Wispr Flow: Voice Dictation",
+    "problem": "Too lazy to type? Need to write emails or reports instantly?",
+    "solution": "Use Wispr Flow to dictate with AI accuracy.",
+    "model_name": "Wispr Flow",
+    "model_link": "https://wisprflow.ai",
+    "prompt": "<context>\n  I am dictating a messy stream of consciousness. You are my professional editor.\n</context>\n\n<task>\n  Take the following voice transcript about [TOPIC].\n  Rewrite it into a polished [EMAIL / MEMO / REPORT].\n</task>\n\n<controls>\n  **style:** Professional, concise, active voice.\n  **action:** Remove all filler words (um, ah) and fix grammar.\n</controls>"
   },
   {
-    "slug": "python-debugger",
+    "slug": "notebook-lm-study",
+    "category": "Learning",
+    "title": "NotebookLM: PDF to Podcast",
+    "problem": "Need to analyze a scanned PDF or find insights from a 100-page report?",
+    "solution": "Upload to NotebookLM to generate summaries, quizzes, and audio podcasts.",
+    "model_name": "NotebookLM",
+    "model_link": "https://notebooklm.google.com",
+    "prompt": "<instruction>\n  (This is a System Instruction for NotebookLM)\n</instruction>\n\n<persona>\n  You are a 'Deep Dive' Podcast Host.\n  Your goal is to explain complex topics to a general audience using analogies.\n</persona>\n\n<task>\n  Ingest the uploaded PDF.\n  Generate an 'Audio Overview' that focuses specifically on the CONTROVERSIAL or SURPRISING elements of the data, not just a summary.\n</task>"
+  },
+  {
+    "slug": "gemini-visuals",
+    "category": "Design",
+    "title": "Gemini: Brand Visuals",
+    "problem": "Want to create posters or creatives for your work without a designer?",
+    "solution": "Use Gemini to generate unique visuals for branding.",
+    "model_name": "Gemini",
+    "model_link": "https://gemini.google.com",
+    "prompt": "<system_context>\n  You are a Senior Art Director specializing in Minimalist Tech Branding.\n</system_context>\n\n<task>\n  Generate an image for a landing page header about [TOPIC].\n</task>\n\n<visual_controls>\n  **Style:** Bauhaus, Flat Vector, 8k Resolution.\n  **Palette:** Electric Blue (#0070f3) and White.\n  **Composition:** Wide angle, negative space on the right for text overlays.\n</visual_controls>"
+  },
+  {
+    "slug": "gemini-coding",
     "category": "Coding",
-    "title": "Python Bug Fixer",
-    "prompt": "I will provide Python code that has an error. Analyze the logic, find the bug, and provide the fixed code with comments.",
-    "model_name": "ChatGPT",
-    "model_link": "https://chat.openai.com"
+    "title": "Gemini: Frontend Coder",
+    "problem": "Don't know how to code but need a website?",
+    "solution": "Upload a screenshot of a design to Gemini and ask for the code.",
+    "model_name": "Gemini",
+    "model_link": "https://gemini.google.com",
+    "prompt": "<system_context>\n  You are a Senior Frontend Engineer (React/Tailwind Specialist).\n</system_context>\n\n<user_task>\n  Look at the attached screenshot.\n  Write the complete, functional code to replicate this UI pixel-perfectly.\n</user_task>\n\n<constraints>\n  **reasoning_effort:** high\n  (Analyze the padding, font weights, and mobile responsiveness before writing code.)\n  **stack:** Next.js 14, Tailwind CSS, Lucide Icons.\n</constraints>"
   },
   {
-    "slug": "logo-designer",
-    "category": "Image Gen",
-    "title": "Minimalist Vector Logo",
-    "prompt": "Flat vector logo design of a [ANIMAL], minimalist style, white background, golden ratio, simple geometric shapes.",
-    "model_name": "Bing Images",
-    "model_link": "https://www.bing.com/images/create"
+    "slug": "google-ai-studio-apps",
+    "category": "Development",
+    "title": "Google AI Studio: App Builder",
+    "problem": "Want to build entire applications without coding knowledge?",
+    "solution": "Use Google AI Studio to build apps at $0 cost.",
+    "model_name": "Google AI Studio",
+    "model_link": "https://aistudio.google.com",
+    "prompt": "<system>\n  Act as a Full Stack Architect.\n</system>\n\n<task>\n  Build a single-file Python Streamlit app that [DESCRIBE FUNCTION].\n</task>\n\n<controls>\n  **reasoning_effort:** high\n  **safety:** Ensure all inputs are sanitized.\n  **output:** Provide only the raw code block ready for deployment.\n</controls>"
   },
   {
-    "slug": "youtube-hook",
-    "category": "Writing",
-    "title": "Viral YouTube Hook",
-    "prompt": "Write 3 variations of a 15-second YouTube video intro hook about [TOPIC]. Create curiosity immediately.",
+    "slug": "julius-data-analysis",
+    "category": "Data",
+    "title": "Julius AI: Data Analyst",
+    "problem": "Find it time-consuming to derive insights from Excel/CSV files?",
+    "solution": "Upload data to Julius AI for instant visualization and analysis.",
+    "model_name": "Julius AI",
+    "model_link": "https://julius.ai",
+    "prompt": "<system_context>\n  You are a Data Scientist specializing in Financial Forecasting.\n</system_context>\n\n<task>\n  1. Ingest the attached CSV.\n  2. Clean the data (remove nulls).\n  3. Generate a 'Forecast Chart' projecting the next 12 months based on historical trends.\n</task>\n\n<output_format>\n  Provide the Python code used for the analysis and the final PNG chart.\n</output_format>"
+  },
+  {
+    "slug": "ats-resume-generator",
+    "category": "Career",
+    "title": "ATS Resume Optimizer",
+    "problem": "Not getting enough interview calls?",
+    "solution": "Create an ATS-friendly resume to get shortlisted.",
     "model_name": "ChatGPT",
-    "model_link": "https://chat.openai.com"
+    "model_link": "https://chatgpt.com",
+    "prompt": "<system_context>\n  You are an expert HR Recruiter and ATS Algorithm specialist.\n</system_context>\n\n<task>\n  Analyze my resume (text below) against this Job Description [PASTE JD].\n</task>\n\n<constraints>\n  **reasoning_effort:** high\n  **action:** Identify 5 missing keywords. Rewrite my 'Professional Summary' to include these keywords naturally.\n</constraints>"
+  },
+  {
+    "slug": "chatgpt-mock-interview",
+    "category": "Career",
+    "title": "ChatGPT: Mock Interviewer",
+    "problem": "Resume shortlisted but nervous about the interview?",
+    "solution": "Use ChatGPT Voice Mode to practice real-time.",
+    "model_name": "ChatGPT App",
+    "model_link": "https://chatgpt.com",
+    "prompt": "<system_context>\n  (Voice Mode Instruction)\n  You are a skeptical Hiring Manager at a FAANG company.\n</system_context>\n\n<task>\n  Conduct a stress-test interview for the [ROLE] position.\n  Ask me one question at a time. Interrupt me if I ramble.\n</task>\n\n<controls>\n  **verbosity:** low\n  (Keep your questions short and punchy.)\n</controls>"
+  },
+  {
+    "slug": "comet-job-search",
+    "category": "Career",
+    "title": "Comet: Job Hunter",
+    "problem": "Difficult to find high-paying jobs >15 LPA?",
+    "solution": "Use Comet to automate job applications based on your profile.",
+    "model_name": "Comet",
+    "model_link": "https://comet.com",
+    "prompt": "<system_context>\n  You are a Career Agent.\n</system_context>\n\n<task>\n  Search for 'Prompt Engineer' roles in [LOCATION].\n  Filter for: Salary > $100k, Remote = True.\n</task>\n\n<action>\n  Draft a personalized cover letter for the top 3 matches using my uploaded resume.\n</action>"
   }
 ]
