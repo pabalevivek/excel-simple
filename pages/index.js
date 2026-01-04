@@ -25,9 +25,14 @@ export default function Home({ tools, sidebarData }) {
   // --- STATE ---
   const [mainQuery, setMainQuery] = useState('');
   const [activeCategory, setActiveCategory] = useState('All');
-  const [showOptimizer, setShowOptimizer] = useState(false); // Modal State
   
-  // --- OPTIMIZER STATE ---
+  // Mobile & UI State
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [openCategories, setOpenCategories] = useState({}); // Track expanded categories
+  const [expandedPrompt, setExpandedPrompt] = useState(null); // Track expanded prompt text
+  const [showOptimizer, setShowOptimizer] = useState(false);
+  
+  // Optimizer State
   const [optInput, setOptInput] = useState('');
   const [optEffort, setOptEffort] = useState('Medium'); 
   const [optOutput, setOptOutput] = useState('');
@@ -52,6 +57,20 @@ export default function Home({ tools, sidebarData }) {
   const categories = Object.keys(categoryConfig).map(key => ({ id: key, ...categoryConfig[key] }));
   const getConfig = (cat) => categoryConfig[cat] || categoryConfig['All'];
 
+  // --- HELPER FUNCTIONS ---
+  const toggleCategory = (idx) => {
+    setOpenCategories(prev => ({ ...prev, [idx]: !prev[idx] }));
+  };
+
+  const togglePrompt = (label) => {
+    setExpandedPrompt(expandedPrompt === label ? null : label);
+  };
+
+  const copyToClipboard = (text) => {
+    navigator.clipboard.writeText(text);
+    alert("Copied to clipboard!");
+  };
+
   // --- OPTIMIZER LOGIC ---
   const handleOptimize = () => {
     if (!optInput) return;
@@ -72,11 +91,6 @@ export default function Home({ tools, sidebarData }) {
     }, 800);
   };
 
-  const copyToClipboard = (text) => {
-    navigator.clipboard.writeText(text);
-    alert("Copied!");
-  };
-
   // --- FILTERING ---
   const filteredTools = tools.filter(tool => {
     if (activeCategory === 'Super AI' && !tool.is_multimodal) return false;
@@ -86,72 +100,126 @@ export default function Home({ tools, sidebarData }) {
   }).sort((a, b) => (b.is_multimodal === true) - (a.is_multimodal === true));
 
   return (
-    <div style={{ fontFamily: '"Inter", sans-serif', background: '#f8fafc', minHeight: '100vh', display: 'flex' }}>
+    <div style={{ fontFamily: '"Inter", sans-serif', background: '#f8fafc', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       
-      {/* --- GLOBAL STYLES --- */}
+      {/* --- CSS STYLES --- */}
       <style jsx global>{`
         * { box-sizing: border-box; }
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
         
         .sidebar-container { 
-          width: 280px; /* FIXED WIDTH */
+          width: 280px; 
           background: #0f172a; 
           height: 100vh; 
           position: fixed; 
           left: 0; top: 0; 
           z-index: 100;
-          overflow-y: auto; /* Scrollable */
-          box-shadow: 4px 0 20px rgba(0,0,0,0.1);
+          overflow-y: auto;
           color: white;
-          display: flex;
-          flex-direction: column;
+          transition: transform 0.3s ease;
         }
-        
+
+        /* MOBILE STYLES */
+        @media (max-width: 768px) {
+          .sidebar-container { transform: translateX(-100%); width: 80%; max-width: 300px; }
+          .sidebar-container.open { transform: translateX(0); }
+          .main-content { margin-left: 0 !important; width: 100% !important; padding: 20px !important; }
+          .mobile-header { display: flex !important; }
+          .desktop-layout { display: block; }
+        }
+
+        /* DESKTOP STYLES */
+        @media (min-width: 769px) {
+          .mobile-header { display: none !important; }
+          .main-content { margin-left: 280px; width: calc(100% - 280px); }
+        }
+
         .nav-item {
-          display: flex; align-items: center; padding: 12px 24px; cursor: pointer;
-          white-space: nowrap; transition: background 0.2s; color: #94a3b8;
+          display: flex; align-items: center; padding: 12px 20px; cursor: pointer;
+          transition: background 0.2s; color: #94a3b8; font-size: 0.9rem;
         }
         .nav-item:hover { background: #1e293b; color: white; }
-        .nav-icon { min-width: 24px; font-size: 1.1rem; text-align: center; }
-        .nav-label { margin-left: 12px; font-size: 0.9rem; font-weight: 500; }
         
-        .group-title {
-          padding: 20px 24px 8px; font-size: 0.75rem; color: #64748b; 
-          fontWeight: bold; text-transform: uppercase; letter-spacing: 1px;
+        .group-header {
+          padding: 15px 20px; font-size: 0.8rem; color: #cbd5e1; 
+          font-weight: bold; text-transform: uppercase; letter-spacing: 0.5px;
+          cursor: pointer; display: flex; justify-content: space-between;
+          border-bottom: 1px solid #1e293b;
+        }
+        .group-header:hover { background: #1e293b; }
+        
+        .prompt-preview {
+          background: #1e293b; padding: 10px; margin: 0 20px 10px; 
+          border-radius: 8px; font-size: 0.85rem; color: #e2e8f0; border: 1px solid #334155;
         }
 
         .tool-card:hover { transform: translateY(-3px); box-shadow: 0 10px 20px -5px rgba(0,0,0,0.1); }
       `}</style>
 
-      {/* --- LEFT SIDEBAR (FIXED) --- */}
-      <aside className="sidebar-container">
+      {/* --- MOBILE HEADER --- */}
+      <div className="mobile-header" style={{ padding: '15px 20px', background: 'white', borderBottom: '1px solid #e2e8f0', justifyContent: 'space-between', alignItems: 'center', position: 'sticky', top: 0, zIndex: 90 }}>
+        <div style={{ fontWeight: '800', fontSize: '1.2rem', color: '#0f172a' }}>AI Command Center</div>
+        <button onClick={() => setIsSidebarOpen(true)} style={{ background: '#f1f5f9', border: '1px solid #e2e8f0', padding: '8px 12px', borderRadius: '8px', fontSize: '1.2rem', cursor: 'pointer' }}>☰</button>
+      </div>
+
+      {/* --- SIDEBAR OVERLAY (Mobile Only) --- */}
+      {isSidebarOpen && (
+        <div onClick={() => setIsSidebarOpen(false)} style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.5)', zIndex: 95, backdropFilter: 'blur(2px)' }} className="mobile-only"></div>
+      )}
+
+      {/* --- LEFT SIDEBAR --- */}
+      <aside className={`sidebar-container ${isSidebarOpen ? 'open' : ''}`}>
         
         {/* LOGO AREA */}
-        <div style={{ padding: '25px 24px', borderBottom: '1px solid #1e293b', marginBottom: '10px', display: 'flex', alignItems: 'center', gap: '10px' }}>
-          <div style={{ fontSize: '1.5rem' }}>🤖</div>
-          <div style={{ fontWeight: '800', fontSize: '1.1rem', letterSpacing: '-0.5px' }}>AI Center</div>
+        <div style={{ padding: '25px 24px', borderBottom: '1px solid #1e293b', marginBottom: '10px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <div style={{ fontSize: '1.5rem' }}>🤖</div>
+            <div style={{ fontWeight: '800', fontSize: '1.1rem' }}>AI Center</div>
+          </div>
+          {/* Close button for mobile */}
+          <button onClick={() => setIsSidebarOpen(false)} className="mobile-only" style={{ background: 'transparent', border: 'none', color: 'white', fontSize: '1.5rem', cursor: 'pointer', display: 'none' }}>✕</button>
+          <style jsx>{` @media(max-width: 768px) { .mobile-only { display: block !important; } } `}</style>
         </div>
 
         {/* 1. MAGIC BUTTON (Optimizer) */}
-        <div className="nav-item" onClick={() => setShowOptimizer(true)} style={{ background: 'rgba(96, 165, 250, 0.1)', borderLeft: '3px solid #60a5fa', color: 'white' }}>
-          <div className="nav-icon">✨</div>
-          <div className="nav-label" style={{ fontWeight: 'bold' }}>GPT-5 Optimizer</div>
+        <div className="nav-item" onClick={() => setShowOptimizer(true)} style={{ background: 'rgba(96, 165, 250, 0.1)', borderLeft: '3px solid #60a5fa', color: 'white', margin: '10px 0' }}>
+          <span style={{ marginRight: '10px' }}>✨</span>
+          <span style={{ fontWeight: 'bold' }}>GPT-5 Optimizer</span>
         </div>
 
-        <div style={{ height: '1px', background: '#1e293b', margin: '15px 24px' }}></div>
+        <div style={{ height: '1px', background: '#1e293b', margin: '10px 20px' }}></div>
 
-        {/* 2. PROMPT LIBRARY */}
+        {/* 2. PROMPT LIBRARY (Collapsible) */}
         <div style={{ flex: 1 }}>
           {sidebarData && sidebarData.map((group, idx) => (
             <div key={idx}>
-              <div className="group-title">
-                {group.category} 
+              {/* Category Header (Click to Toggle) */}
+              <div className="group-header" onClick={() => toggleCategory(idx)}>
+                <span>{group.category}</span>
+                <span>{openCategories[idx] ? '−' : '+'}</span>
               </div>
-              {group.items.map((item, i) => (
-                <div key={i} className="nav-item" onClick={() => item.type === 'prompt' ? copyToClipboard(item.content) : window.open(item.link)}>
-                  <div className="nav-icon">{item.type === 'gpt' ? '🤖' : '📝'}</div>
-                  <div className="nav-label" style={{ overflow: 'hidden', textOverflow: 'ellipsis' }}>{item.label}</div>
+              
+              {/* Items List (Show if Open) */}
+              {openCategories[idx] && group.items.map((item, i) => (
+                <div key={i}>
+                  <div className="nav-item" onClick={() => item.type === 'gpt' ? window.open(item.link) : togglePrompt(item.label)}>
+                    <span style={{ marginRight: '10px' }}>{item.type === 'gpt' ? '🤖' : '📝'}</span>
+                    <span style={{ overflow: 'hidden', textOverflow: 'ellipsis' }}>{item.label}</span>
+                  </div>
+                  
+                  {/* Expanded Prompt Text */}
+                  {item.type === 'prompt' && expandedPrompt === item.label && (
+                    <div className="prompt-preview">
+                      <div style={{ marginBottom: '10px', lineHeight: '1.5' }}>{item.content}</div>
+                      <button 
+                        onClick={() => copyToClipboard(item.content)}
+                        style={{ width: '100%', padding: '8px', background: '#3b82f6', border: 'none', borderRadius: '4px', color: 'white', cursor: 'pointer', fontSize: '0.8rem', fontWeight: 'bold' }}
+                      >
+                        Copy Prompt
+                      </button>
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
@@ -161,8 +229,8 @@ export default function Home({ tools, sidebarData }) {
 
       {/* --- MODAL: GPT-5 OPTIMIZER --- */}
       {showOptimizer && (
-        <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', background: 'rgba(0,0,0,0.6)', zIndex: 200, display: 'flex', alignItems: 'center', justifyContent: 'center', backdropFilter: 'blur(5px)' }}>
-          <div style={{ background: '#1e293b', width: '90%', maxWidth: '500px', borderRadius: '20px', padding: '25px', boxShadow: '0 20px 50px rgba(0,0,0,0.5)', color: 'white', border: '1px solid #334155' }}>
+        <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', background: 'rgba(0,0,0,0.7)', zIndex: 200, display: 'flex', alignItems: 'center', justifyContent: 'center', backdropFilter: 'blur(5px)', padding: '20px' }}>
+          <div style={{ background: '#1e293b', width: '100%', maxWidth: '500px', borderRadius: '20px', padding: '25px', boxShadow: '0 20px 50px rgba(0,0,0,0.5)', color: 'white', border: '1px solid #334155' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px' }}>
               <h2 style={{ margin: 0, fontSize: '1.2rem' }}>✨ GPT-5 Prompt Optimizer</h2>
               <button onClick={() => setShowOptimizer(false)} style={{ background: 'transparent', border: 'none', color: '#94a3b8', cursor: 'pointer', fontSize: '1.2rem' }}>✕</button>
@@ -171,7 +239,7 @@ export default function Home({ tools, sidebarData }) {
             {!optOutput ? (
               <>
                 <textarea 
-                  placeholder="What do you want to create? (e.g. 'Snake game in Python')" 
+                  placeholder="Task (e.g. 'Snake game in Python')..." 
                   value={optInput}
                   onChange={(e) => setOptInput(e.target.value)}
                   style={{ width: '100%', height: '100px', padding: '15px', borderRadius: '10px', border: 'none', background: '#0f172a', color: 'white', fontSize: '1rem', marginBottom: '20px', fontFamily: 'inherit' }}
@@ -180,7 +248,7 @@ export default function Home({ tools, sidebarData }) {
                   {['Low', 'Medium', 'High'].map(level => (
                     <button key={level} onClick={() => setOptEffort(level)}
                       style={{ flex: 1, padding: '10px', borderRadius: '8px', border: optEffort === level ? '1px solid #3b82f6' : '1px solid #334155', background: optEffort === level ? '#3b82f6' : 'transparent', color: 'white', cursor: 'pointer' }}>
-                      {level} Effort
+                      {level}
                     </button>
                   ))}
                 </div>
@@ -203,44 +271,44 @@ export default function Home({ tools, sidebarData }) {
         </div>
       )}
 
-      {/* --- MAIN CONTENT (Adjusted Margin) --- */}
-      <main style={{ flex: 1, marginLeft: '280px', padding: '30px', width: 'calc(100% - 280px)' }}>
+      {/* --- MAIN CONTENT --- */}
+      <main className="main-content" style={{ flex: 1, padding: '40px', transition: 'margin 0.3s' }}>
         
         {/* SEARCH & HEADER */}
         <div style={{ maxWidth: '900px', margin: '20px auto 40px', textAlign: 'center' }}>
-          <h1 style={{ fontSize: '3.5rem', fontWeight: '800', color: '#0f172a', marginBottom: '15px', letterSpacing: '-1.5px' }}>
+          <h1 style={{ fontSize: '2.5rem', fontWeight: '800', color: '#0f172a', marginBottom: '15px', letterSpacing: '-1px', lineHeight: '1.2' }}>
             Find the Perfect Model
           </h1>
-          <div style={{ display: 'flex', background: 'white', padding: '8px', borderRadius: '50px', boxShadow: '0 10px 40px rgba(0,0,0,0.08)' }}>
-            <input type="text" placeholder="Search 200+ models..." value={mainQuery} onChange={(e) => setMainQuery(e.target.value)} style={{ flex: 1, padding: '15px 25px', borderRadius: '50px', border: 'none', outline: 'none', fontSize: '1.1rem' }} />
-            <button style={{ background: '#0f172a', color: 'white', border: 'none', padding: '12px 40px', borderRadius: '40px', fontWeight: 'bold', fontSize: '1rem', cursor: 'pointer' }}>Search</button>
+          <div style={{ display: 'flex', background: 'white', padding: '6px', borderRadius: '50px', boxShadow: '0 10px 30px rgba(0,0,0,0.08)', border: '1px solid #e2e8f0' }}>
+            <input type="text" placeholder="Search 200+ models..." value={mainQuery} onChange={(e) => setMainQuery(e.target.value)} style={{ flex: 1, padding: '12px 20px', borderRadius: '50px', border: 'none', outline: 'none', fontSize: '1rem', minWidth: '0' }} />
+            <button style={{ background: '#0f172a', color: 'white', border: 'none', padding: '12px 30px', borderRadius: '40px', fontWeight: 'bold', fontSize: '0.9rem', cursor: 'pointer' }}>Search</button>
           </div>
         </div>
 
         {/* TABS */}
-        <div style={{ display: 'flex', gap: '10px', overflowX: 'auto', paddingBottom: '15px', marginBottom: '20px', justifyContent: 'center' }}>
+        <div style={{ display: 'flex', gap: '10px', overflowX: 'auto', paddingBottom: '15px', marginBottom: '20px', justifyContent: 'flex-start', scrollbarWidth: 'none' }}>
           {categories.map(cat => (
             <button key={cat.id} onClick={() => setActiveCategory(cat.id)}
-              style={{ padding: '10px 20px', borderRadius: '25px', border: 'none', background: activeCategory === cat.id ? cat.solid : 'white', color: activeCategory === cat.id ? 'white' : '#64748b', fontWeight: '700', cursor: 'pointer', whiteSpace: 'nowrap', boxShadow: '0 2px 10px rgba(0,0,0,0.05)', transition: 'all 0.2s' }}>
-              <span style={{ marginRight: '8px' }}>{cat.icon}</span> {cat.id}
+              style={{ padding: '8px 16px', borderRadius: '25px', border: 'none', background: activeCategory === cat.id ? cat.solid : 'white', color: activeCategory === cat.id ? 'white' : '#64748b', fontWeight: '700', cursor: 'pointer', whiteSpace: 'nowrap', boxShadow: '0 2px 10px rgba(0,0,0,0.05)', transition: 'all 0.2s', fontSize: '0.9rem' }}>
+              <span style={{ marginRight: '6px' }}>{cat.icon}</span> {cat.id}
             </button>
           ))}
         </div>
 
         {/* GRID */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '25px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '20px' }}>
           {filteredTools.map((item) => {
             const theme = getConfig(item.category);
             return (
               <Link href={`/formula/${item.slug}`} key={item.slug} style={{ textDecoration: 'none' }}>
-                <div className="tool-card" style={{ background: 'white', borderRadius: '20px', padding: '25px', border: `1px solid ${theme.solid}15`, height: '100%', display: 'flex', flexDirection: 'column', transition: 'all 0.2s' }}>
+                <div className="tool-card" style={{ background: 'white', borderRadius: '20px', padding: '20px', border: `1px solid ${theme.solid}15`, height: '100%', display: 'flex', flexDirection: 'column', transition: 'all 0.2s' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '15px' }}>
-                    <span style={{ fontSize: '0.75rem', fontWeight: '800', color: theme.solid, background: theme.soft, padding: '5px 12px', borderRadius: '20px', textTransform: 'uppercase' }}>{theme.icon} {item.category}</span>
-                    {item.is_multimodal && <span style={{ fontSize: '0.7rem', background: '#0f172a', color: 'white', padding: '5px 10px', borderRadius: '8px', fontWeight: 'bold' }}>PRO</span>}
+                    <span style={{ fontSize: '0.7rem', fontWeight: '800', color: theme.solid, background: theme.soft, padding: '5px 10px', borderRadius: '20px', textTransform: 'uppercase' }}>{theme.icon} {item.category}</span>
+                    {item.is_multimodal && <span style={{ fontSize: '0.7rem', background: '#0f172a', color: 'white', padding: '5px 8px', borderRadius: '8px', fontWeight: 'bold' }}>PRO</span>}
                   </div>
-                  <h3 style={{ margin: '0 0 10px', fontSize: '1.4rem', fontWeight: '700', color: '#1e293b' }}>{item.title}</h3>
-                  <p style={{ color: '#64748b', fontSize: '0.95rem', marginBottom: '25px', flex: 1, lineHeight: '1.6' }}>{item.problem}</p>
-                  <div style={{ background: theme.solid, color: 'white', textAlign: 'center', padding: '12px', borderRadius: '12px', fontWeight: '700', fontSize: '0.95rem' }}>Use {item.model_name} →</div>
+                  <h3 style={{ margin: '0 0 8px', fontSize: '1.3rem', fontWeight: '700', color: '#1e293b' }}>{item.title}</h3>
+                  <p style={{ color: '#64748b', fontSize: '0.9rem', marginBottom: '20px', flex: 1, lineHeight: '1.5' }}>{item.problem}</p>
+                  <div style={{ background: theme.solid, color: 'white', textAlign: 'center', padding: '10px', borderRadius: '12px', fontWeight: '700', fontSize: '0.9rem' }}>Use {item.model_name} →</div>
                 </div>
               </Link>
             );
