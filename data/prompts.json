@@ -1,183 +1,1291 @@
 [
   {
-    "slug": "grok-deep-search", "category": "Research", "title": "Grok (DeepSearch)",
-    "problem": "Need consultant-level research reports?", "solution": "DeepSearch browses the live web for data.",
-    "model_name": "Grok", "model_link": "https://grok.com",
-    "prompt": "<system_context>You are a PhD Researcher.</system_context><task>DeepSearch: [TOPIC]</task>"
+    "slug": "gpt-5-pro",
+    "category": "Reasoning",
+    "title": "GPT-5 Pro",
+    "problem": "Need the smartest AI model in existence?",
+    "solution": "The flagship model with high reasoning effort.",
+    "model_name": "GPT-5",
+    "model_link": "https://openai.com",
+    "prompt": "<instruction>Reasoning_effort: High. Solve this complex logic puzzle.</instruction>"
   },
   {
-    "slug": "sora-video", "category": "Video", "title": "Sora",
-    "problem": "Need cinematic video from text?", "solution": "Generates realistic 1-minute videos.",
-    "model_name": "Sora", "model_link": "https://openai.com/sora",
-    "prompt": "<instruction>Describe: 'A cyberpunk street in Tokyo, raining, 4k'</instruction>"
+    "slug": "gpt-5-nano",
+    "category": "Coding",
+    "title": "GPT-5 Nano",
+    "problem": "Need instant, low-latency code fixes?",
+    "solution": "Lightweight model for ultra-fast tasks.",
+    "model_name": "GPT-5 Nano",
+    "model_link": "https://openai.com",
+    "prompt": "<instruction>Fix this JSON syntax error instantly.</instruction>"
   },
   {
-    "slug": "midjourney-v6", "category": "Image", "title": "Midjourney v6",
-    "problem": "Need artistic, high-res images?", "solution": "The gold standard for AI art.",
-    "model_name": "Midjourney", "model_link": "https://discord.com/invite/midjourney",
-    "prompt": "<instruction>Type: '/imagine prompt: A futuristic car'</instruction>"
+    "slug": "deepseek-r1",
+    "category": "Coding",
+    "title": "DeepSeek R1",
+    "problem": "Need expert coding/math for free?",
+    "solution": "Open-source model that rivals top proprietary models.",
+    "model_name": "DeepSeek",
+    "model_link": "https://chat.deepseek.com",
+    "prompt": "<instruction>Optimize this Python script for O(n) complexity.</instruction>"
   },
   {
-    "slug": "grimoire-coding", "category": "Coding", "title": "Grimoire",
-    "problem": "Need to build a website/app but can't code?", "solution": "The #1 Coding Wizard. Writes code from one sentence.",
-    "model_name": "Grimoire", "model_link": "https://chat.openai.com/g/g-n7Rs0IK86-grimoire",
-    "prompt": "<instruction>Type: 'Build a website for [TOPIC]'.</instruction>"
+    "slug": "gemini-1-5-pro",
+    "category": "Business",
+    "title": "Gemini 1.5 Pro",
+    "problem": "Need to analyze a 1-hour video or 1000 files?",
+    "solution": "Massive context window (1M+ tokens).",
+    "model_name": "Gemini",
+    "model_link": "https://gemini.google.com",
+    "prompt": "<instruction>Upload video -> 'Explain the key events'</instruction>"
   },
   {
-    "slug": "runway-gen3", "category": "Video", "title": "Runway Gen-3",
-    "problem": "Need Hollywood-style VFX?", "solution": "Text-to-video with camera controls.",
-    "model_name": "Runway", "model_link": "https://runwayml.com",
-    "prompt": "<instruction>Type: 'Drone shot of a mountain, fast zoom'</instruction>"
+    "slug": "claude-3-5-sonnet",
+    "category": "Coding",
+    "title": "Claude 3.5 Sonnet",
+    "problem": "Need human-like coding and writing?",
+    "solution": "Best-in-class for one-shot coding success.",
+    "model_name": "Claude",
+    "model_link": "https://claude.ai",
+    "prompt": "<instruction>Build a React component for a dashboard.</instruction>"
   },
   {
-    "slug": "elevenlabs", "category": "Voice", "title": "ElevenLabs",
-    "problem": "Need a realistic voiceover?", "solution": "The best AI text-to-speech voice generator.",
-    "model_name": "ElevenLabs", "model_link": "https://elevenlabs.io",
-    "prompt": "<instruction>Paste text -> Select 'Adam' voice</instruction>"
+    "slug": "grok-3",
+    "category": "Research",
+    "title": "Grok 3 (xAI)",
+    "problem": "Want uncensored, real-time news?",
+    "solution": "Accesses live X (Twitter) data.",
+    "model_name": "Grok",
+    "model_link": "https://grok.com",
+    "prompt": "<instruction>What is the latest breaking news on [TOPIC]?</instruction>"
   },
   {
-    "slug": "heygen-avatar", "category": "Video", "title": "HeyGen",
-    "problem": "Need a spokesperson video?", "solution": "Creates realistic AI avatars that speak your text.",
-    "model_name": "HeyGen", "model_link": "https://heygen.com",
-    "prompt": "<instruction>Upload script -> Choose Avatar</instruction>"
+    "slug": "notebook-lm",
+    "category": "Research",
+    "title": "NotebookLM",
+    "problem": "Need to study complex PDFs?",
+    "solution": "Turns docs into audio podcasts and summaries.",
+    "model_name": "NotebookLM",
+    "model_link": "https://notebooklm.google.com",
+    "prompt": "<instruction>Upload PDF -> 'Generate Audio Overview'</instruction>"
   },
   {
-    "slug": "cursor-editor", "category": "Coding", "title": "Cursor",
-    "problem": "VS Code is too dumb?", "solution": "The AI-first code editor.",
-    "model_name": "Cursor", "model_link": "https://cursor.sh",
-    "prompt": "<instruction>Cmd+K -> 'Refactor this file'</instruction>"
+    "slug": "midjourney-v6",
+    "category": "Image",
+    "title": "Midjourney v6",
+    "problem": "Need photorealistic art?",
+    "solution": "The gold standard for AI imagery.",
+    "model_name": "Midjourney",
+    "model_link": "https://discord.com/invite/midjourney",
+    "prompt": "<instruction>/imagine prompt: Cinematic shot of...</instruction>"
   },
   {
-    "slug": "perplexity-ai", "category": "Research", "title": "Perplexity",
-    "problem": "Google gives too many ads?", "solution": "AI search engine that cites sources.",
-    "model_name": "Perplexity", "model_link": "https://perplexity.ai",
-    "prompt": "<instruction>Ask: 'Best laptop for coding 2025'</instruction>"
+    "slug": "sora",
+    "category": "Video",
+    "title": "Sora",
+    "problem": "Cinematic video from text?",
+    "solution": "Generates realistic 1-minute videos.",
+    "model_name": "Sora",
+    "model_link": "https://openai.com/sora",
+    "prompt": "<instruction>A movie trailer for a sci-fi film...</instruction>"
   },
   {
-    "slug": "suno-ai", "category": "Music", "title": "Suno AI",
-    "problem": "Need a song for your video?", "solution": "Generates full songs with lyrics and vocals.",
-    "model_name": "Suno", "model_link": "https://suno.com",
-    "prompt": "<instruction>Type: 'Upbeat pop song about coding'</instruction>"
+    "slug": "runway-gen3",
+    "category": "Video",
+    "title": "Runway Gen-3",
+    "problem": "Controllable video VFX?",
+    "solution": "Text-to-video with camera motion controls.",
+    "model_name": "Runway",
+    "model_link": "https://runwayml.com",
+    "prompt": "<instruction>Drone shot zooming into a forest.</instruction>"
   },
   {
-    "slug": "gamma-app", "category": "Business", "title": "Gamma",
-    "problem": "Hate making PowerPoint slides?", "solution": "Generates entire presentations from a topic.",
-    "model_name": "Gamma", "model_link": "https://gamma.app",
-    "prompt": "<instruction>Type: 'Presentation on AI history'</instruction>"
+    "slug": "elevenlabs",
+    "category": "Voice",
+    "title": "ElevenLabs",
+    "problem": "Realistic AI voiceovers?",
+    "solution": "Best text-to-speech engine.",
+    "model_name": "ElevenLabs",
+    "model_link": "https://elevenlabs.io",
+    "prompt": "<instruction>Read this script in a deep narration voice.</instruction>"
   },
   {
-    "slug": "canva-gpt", "category": "Design", "title": "Canva",
-    "problem": "Need social media posts designed fast?", "solution": "Generates Canva templates you can edit.",
-    "model_name": "Canva", "model_link": "https://chat.openai.com/g/g-alKfVrz9K-canva",
-    "prompt": "<instruction>Type: 'Instagram post for a coffee shop'.</instruction>"
+    "slug": "suno-ai",
+    "category": "Music",
+    "title": "Suno",
+    "problem": "Make a song with lyrics?",
+    "solution": "Generates radio-ready songs.",
+    "model_name": "Suno",
+    "model_link": "https://suno.com",
+    "prompt": "<instruction>A blues rock song about coding.</instruction>"
   },
   {
-    "slug": "notion-ai", "category": "Writing", "title": "Notion AI",
-    "problem": "Messy notes?", "solution": "Summarizes and writes inside Notion.",
-    "model_name": "Notion", "model_link": "https://notion.so",
-    "prompt": "<instruction>Highlight text -> 'Improve writing'</instruction>"
+    "slug": "udio",
+    "category": "Music",
+    "title": "Udio",
+    "problem": "High-fidelity music creation?",
+    "solution": "Complex musical compositions.",
+    "model_name": "Udio",
+    "model_link": "https://udio.com",
+    "prompt": "<instruction>Classical symphony in C major.</instruction>"
   },
   {
-    "slug": "beautiful-ai", "category": "Design", "title": "Beautiful.ai",
-    "problem": "Ugly slides?", "solution": "Smart slide designer.",
-    "model_name": "Beautiful", "model_link": "https://beautiful.ai",
-    "prompt": "<instruction>Add content -> AI formats it</instruction>"
+    "slug": "perplexity",
+    "category": "Research",
+    "title": "Perplexity",
+    "problem": "Search with citations?",
+    "solution": "Replaces Google with cited answers.",
+    "model_name": "Perplexity",
+    "model_link": "https://perplexity.ai",
+    "prompt": "<instruction>Find the best laptop under $1000 in 2025.</instruction>"
   },
   {
-    "slug": "logo-creator", "category": "Design", "title": "Logo Creator",
-    "problem": "Need a startup logo in seconds?", "solution": "Generates professional logos and app icons.",
-    "model_name": "Logo Creator", "model_link": "https://chat.openai.com/g/g-gGt555ldv-logo-creator",
-    "prompt": "<instruction>Type: 'Minimalist logo for a tech AI'.</instruction>"
+    "slug": "cursor",
+    "category": "Coding",
+    "title": "Cursor",
+    "problem": "AI Code Editor?",
+    "solution": "VS Code fork with native AI.",
+    "model_name": "Cursor",
+    "model_link": "https://cursor.sh",
+    "prompt": "<instruction>Refactor this entire file to use TypeScript.</instruction>"
   },
   {
-    "slug": "humanizer-pro", "category": "Writing", "title": "Humanizer Pro",
-    "problem": "AI text sounds robotic?", "solution": "Rewrites text to bypass AI detection.",
-    "model_name": "Humanizer", "model_link": "https://chat.openai.com/g/g-2kYWQD9C9-humanizer-pro",
-    "prompt": "<instruction>Paste text -> 'Humanize this'.</instruction>"
+    "slug": "heygen",
+    "category": "Video",
+    "title": "HeyGen",
+    "problem": "AI Avatar spokesperson?",
+    "solution": "Lip-synced avatars for presentations.",
+    "model_name": "HeyGen",
+    "model_link": "https://heygen.com",
+    "prompt": "<instruction>Make this avatar say my script.</instruction>"
   },
   {
-    "slug": "video-gpt-veed", "category": "Video", "title": "VideoGPT by VEED",
-    "problem": "Need to make a video but have no footage?", "solution": "Generates scripts and stock footage videos.",
-    "model_name": "VEED", "model_link": "https://chat.openai.com/g/g-HMNcP6w7d-videogpt-by-veed",
-    "prompt": "<instruction>Type: 'Video about how to bake cake'.</instruction>"
+    "slug": "pika",
+    "category": "Video",
+    "title": "Pika Art",
+    "problem": "Animate images?",
+    "solution": "Turns static photos into video.",
+    "model_name": "Pika",
+    "model_link": "https://pika.art",
+    "prompt": "<instruction>Make the character wink and smile.</instruction>"
   },
   {
-    "slug": "scholar-ai", "category": "Research", "title": "ScholarAI",
-    "problem": "Need deep access to medical/legal journals?", "solution": "Direct access to open-access scientific literature.",
-    "model_name": "ScholarAI", "model_link": "https://chat.openai.com/g/g-L2HknCVG3-scholarai",
-    "prompt": "<instruction>Ask: 'Find papers on CRISPR'.</instruction>"
+    "slug": "magnific",
+    "category": "Image",
+    "title": "Magnific AI",
+    "problem": "Upscale blurry photos?",
+    "solution": "Adds detail/hallucinates high res.",
+    "model_name": "Magnific",
+    "model_link": "https://magnific.ai",
+    "prompt": "<instruction>Upscale this photo 2x with high creativity.</instruction>"
   },
   {
-    "slug": "consensus-research", "category": "Research", "title": "Consensus",
-    "problem": "Need answers backed by real science?", "solution": "Searches 200M+ academic papers for citations.",
-    "model_name": "Consensus", "model_link": "https://chat.openai.com/g/g-bo0FiWLY7-consensus",
-    "prompt": "<instruction>Ask: 'Does creatine improve memory?'</instruction>"
+    "slug": "gamma",
+    "category": "Business",
+    "title": "Gamma",
+    "problem": "Instant slide decks?",
+    "solution": "Generates PPTs from a prompt.",
+    "model_name": "Gamma",
+    "model_link": "https://gamma.app",
+    "prompt": "<instruction>Deck about Q4 Marketing Strategy.</instruction>"
   },
   {
-    "slug": "julius-ai", "category": "Business", "title": "Julius AI",
-    "problem": "Have a messy Excel file?", "solution": "Visualizes data and finds trends.",
-    "model_name": "Julius", "model_link": "https://julius.ai",
-    "prompt": "<instruction>Upload CSV -> 'Create a chart'.</instruction>"
+    "slug": "ideogram",
+    "category": "Image",
+    "title": "Ideogram",
+    "problem": "Images with text?",
+    "solution": "Best typography in AI images.",
+    "model_name": "Ideogram",
+    "model_link": "https://ideogram.ai",
+    "prompt": "<instruction>A neon sign that says 'AI REVOLUTION'.</instruction>"
   },
   {
-    "slug": "magnific-ai", "category": "Image", "title": "Magnific AI",
-    "problem": "Image too blurry?", "solution": "Upscales and hallucinates details into photos.",
-    "model_name": "Magnific", "model_link": "https://magnific.ai",
-    "prompt": "<instruction>Upload low-res photo -> 'Upscale 4x'</instruction>"
+    "slug": "krea",
+    "category": "Image",
+    "title": "Krea AI",
+    "problem": "Real-time drawing?",
+    "solution": "Draw shapes, get instant art.",
+    "model_name": "Krea",
+    "model_link": "https://krea.ai",
+    "prompt": "<instruction>Turn my sketch into a realistic landscape.</instruction>"
   },
   {
-    "slug": "luma-genie", "category": "Video", "title": "Luma Genie",
-    "problem": "Need 3D assets for games?", "solution": "Text-to-3D model generator.",
-    "model_name": "Luma", "model_link": "https://lumalabs.ai",
-    "prompt": "<instruction>Type: 'A treasure chest, low poly'</instruction>"
+    "slug": "luma-dream-machine",
+    "category": "Video",
+    "title": "Luma Dream Machine",
+    "problem": "Free high-quality video?",
+    "solution": "Fast video generation model.",
+    "model_name": "Luma",
+    "model_link": "https://lumalabs.ai",
+    "prompt": "<instruction>A monster truck jumping over a bus.</instruction>"
   },
   {
-    "slug": "zapier-ai", "category": "Business", "title": "Zapier AI",
-    "problem": "Want to connect apps?", "solution": "Automate workflows with natural language.",
-    "model_name": "Zapier", "model_link": "https://zapier.com/ai",
-    "prompt": "<instruction>Type: 'When I get a lead, email them'</instruction>"
+    "slug": "luma-genie",
+    "category": "3D",
+    "title": "Luma Genie",
+    "problem": "Text to 3D models?",
+    "solution": "Generates 3D assets.",
+    "model_name": "Luma",
+    "model_link": "https://lumalabs.ai",
+    "prompt": "<instruction>A low-poly treasure chest.</instruction>"
   },
   {
-    "slug": "tome-app", "category": "Business", "title": "Tome",
-    "problem": "Need a storytelling deck?", "solution": "AI storytelling format for decks.",
-    "model_name": "Tome", "model_link": "https://tome.app",
-    "prompt": "<instruction>Type: 'Pitch deck for a startup'</instruction>"
+    "slug": "meshy",
+    "category": "3D",
+    "title": "Meshy",
+    "problem": "3D models for games?",
+    "solution": "Fast text-to-3D.",
+    "model_name": "Meshy",
+    "model_link": "https://meshy.ai",
+    "prompt": "<instruction>A futuristic helmet.</instruction>"
   },
   {
-    "slug": "copy-ai", "category": "Writing", "title": "Copy.ai",
-    "problem": "Need ad copy fast?", "solution": "Generates high-converting ads.",
-    "model_name": "Copy.ai", "model_link": "https://copy.ai",
-    "prompt": "<instruction>Type: 'Facebook ad for shoes'</instruction>"
+    "slug": "spline-ai",
+    "category": "3D",
+    "title": "Spline AI",
+    "problem": "3D web design?",
+    "solution": "Generates 3D scenes for web.",
+    "model_name": "Spline",
+    "model_link": "https://spline.design",
+    "prompt": "<instruction>Create a 3D room with lighting.</instruction>"
   },
   {
-    "slug": "jasper-ai", "category": "Writing", "title": "Jasper",
-    "problem": "Need enterprise marketing copy?", "solution": "On-brand AI marketing writer.",
-    "model_name": "Jasper", "model_link": "https://jasper.ai",
-    "prompt": "<instruction>Type: 'Blog post about coffee'</instruction>"
+    "slug": "julius",
+    "category": "Business",
+    "title": "Julius AI",
+    "problem": "Data analysis?",
+    "solution": "Chat with Excel/CSV files.",
+    "model_name": "Julius",
+    "model_link": "https://julius.ai",
+    "prompt": "<instruction>Visualize the sales trend from this CSV.</instruction>"
   },
   {
-    "slug": "otter-ai", "category": "Business", "title": "Otter.ai",
-    "problem": "Hate taking meeting notes?", "solution": "Transcribes meetings in real-time.",
-    "model_name": "Otter", "model_link": "https://otter.ai",
-    "prompt": "<instruction>Record meeting -> Get Summary</instruction>"
+    "slug": "otter",
+    "category": "Business",
+    "title": "Otter.ai",
+    "problem": "Meeting notes?",
+    "solution": "Transcribes Zoom/Teams calls.",
+    "model_name": "Otter",
+    "model_link": "https://otter.ai",
+    "prompt": "<instruction>Summarize the action items from the meeting.</instruction>"
   },
   {
-    "slug": "descript-video", "category": "Video", "title": "Descript",
-    "problem": "Editing video is hard?", "solution": "Edit video by editing the text transcript.",
-    "model_name": "Descript", "model_link": "https://descript.com",
-    "prompt": "<instruction>Delete text -> Deletes video clip</instruction>"
+    "slug": "fireflies",
+    "category": "Business",
+    "title": "Fireflies.ai",
+    "problem": "Meeting intelligence?",
+    "solution": "AI note taker for calls.",
+    "model_name": "Fireflies",
+    "model_link": "https://fireflies.ai",
+    "prompt": "<instruction>What did we decide about the budget?</instruction>"
   },
   {
-    "slug": "pika-art", "category": "Video", "title": "Pika Art",
-    "problem": "Want to animate a static image?", "solution": "Turns photos into moving videos.",
-    "model_name": "Pika", "model_link": "https://pika.art",
-    "prompt": "<instruction>Upload image -> 'Make the water move'</instruction>"
+    "slug": "descript",
+    "category": "Video",
+    "title": "Descript",
+    "problem": "Edit video like text?",
+    "solution": "Delete words to cut video.",
+    "model_name": "Descript",
+    "model_link": "https://descript.com",
+    "prompt": "<instruction>Remove all 'umms' and 'ahhs'.</instruction>"
   },
   {
-    "slug": "udio-music", "category": "Music", "title": "Udio",
-    "problem": "Need professional music tracks?", "solution": "High-fidelity music generation.",
-    "model_name": "Udio", "model_link": "https://www.udio.com",
-    "prompt": "<instruction>Type: 'Jazz instrumental, saxophone solo'</instruction>"
+    "slug": "opus-clip",
+    "category": "Video",
+    "title": "Opus Clip",
+    "problem": "Viral shorts?",
+    "solution": "Long video to TikToks.",
+    "model_name": "Opus",
+    "model_link": "https://opus.pro",
+    "prompt": "<instruction>Get 5 viral clips from this YouTube link.</instruction>"
+  },
+  {
+    "slug": "jasper",
+    "category": "Writing",
+    "title": "Jasper",
+    "problem": "Marketing copy?",
+    "solution": "Enterprise marketing AI.",
+    "model_name": "Jasper",
+    "model_link": "https://jasper.ai",
+    "prompt": "<instruction>Write a blog post about coffee.</instruction>"
+  },
+  {
+    "slug": "copy-ai",
+    "category": "Writing",
+    "title": "Copy.ai",
+    "problem": "Ad copy?",
+    "solution": "Sales and ad copy generator.",
+    "model_name": "Copy.ai",
+    "model_link": "https://copy.ai",
+    "prompt": "<instruction>Facebook ad for sneakers.</instruction>"
+  },
+  {
+    "slug": "writesonic",
+    "category": "Writing",
+    "title": "Writesonic",
+    "problem": "SEO Articles?",
+    "solution": "Fact-checked article writer.",
+    "model_name": "Writesonic",
+    "model_link": "https://writesonic.com",
+    "prompt": "<instruction>SEO article about 'Best AI Tools'.</instruction>"
+  },
+  {
+    "slug": "quillbot",
+    "category": "Writing",
+    "title": "Quillbot",
+    "problem": "Paraphrasing?",
+    "solution": "Rewrites text to improve flow.",
+    "model_name": "Quillbot",
+    "model_link": "https://quillbot.com",
+    "prompt": "<instruction>Rephrase this to sound professional.</instruction>"
+  },
+  {
+    "slug": "grammarly",
+    "category": "Writing",
+    "title": "Grammarly",
+    "problem": "Grammar check?",
+    "solution": "AI writing assistant.",
+    "model_name": "Grammarly",
+    "model_link": "https://grammarly.com",
+    "prompt": "<instruction>Fix all punctuation errors.</instruction>"
+  },
+  {
+    "slug": "github-copilot",
+    "category": "Coding",
+    "title": "GitHub Copilot",
+    "problem": "Autocomplete code?",
+    "solution": "The original AI coder.",
+    "model_name": "Copilot",
+    "model_link": "https://github.com/features/copilot",
+    "prompt": "<instruction>Finish this function.</instruction>"
+  },
+  {
+    "slug": "replit",
+    "category": "Coding",
+    "title": "Replit AI",
+    "problem": "Code in browser?",
+    "solution": "Online IDE with AI.",
+    "model_name": "Replit",
+    "model_link": "https://replit.com",
+    "prompt": "<instruction>Explain this code block.</instruction>"
+  },
+  {
+    "slug": "tabnine",
+    "category": "Coding",
+    "title": "Tabnine",
+    "problem": "Private code completion?",
+    "solution": "Enterprise secure coding AI.",
+    "model_name": "Tabnine",
+    "model_link": "https://tabnine.com",
+    "prompt": "<instruction>Suggest the next line of code.</instruction>"
+  },
+  {
+    "slug": "codeium",
+    "category": "Coding",
+    "title": "Codeium",
+    "problem": "Free Copilot alternative?",
+    "solution": "Fast, free coding assistant.",
+    "model_name": "Codeium",
+    "model_link": "https://codeium.com",
+    "prompt": "<instruction>Generate unit tests for this.</instruction>"
+  },
+  {
+    "slug": "phind",
+    "category": "Coding",
+    "title": "Phind",
+    "problem": "Search for devs?",
+    "solution": "Search engine for coding answers.",
+    "model_name": "Phind",
+    "model_link": "https://phind.com",
+    "prompt": "<instruction>How do I center a div in CSS?</instruction>"
+  },
+  {
+    "slug": "huggingface",
+    "category": "Coding",
+    "title": "HuggingChat",
+    "problem": "Open Source models?",
+    "solution": "Chat with Llama 3, Mistral, etc.",
+    "model_name": "HuggingFace",
+    "model_link": "https://huggingface.co/chat",
+    "prompt": "<instruction>Run Llama 3 70B.</instruction>"
+  },
+  {
+    "slug": "poe",
+    "category": "Chat",
+    "title": "Poe",
+    "problem": "All bots in one app?",
+    "solution": "Aggregator for GPT, Claude, etc.",
+    "model_name": "Poe",
+    "model_link": "https://poe.com",
+    "prompt": "<instruction>Chat with Claude 3 Opus.</instruction>"
+  },
+  {
+    "slug": "character-ai",
+    "category": "Life",
+    "title": "Character.ai",
+    "problem": "Chat with personas?",
+    "solution": "Roleplay with fictional characters.",
+    "model_name": "Character",
+    "model_link": "https://character.ai",
+    "prompt": "<instruction>Chat with Einstein.</instruction>"
+  },
+  {
+    "slug": "replika",
+    "category": "Life",
+    "title": "Replika",
+    "problem": "AI Friend?",
+    "solution": "Emotional support companion.",
+    "model_name": "Replika",
+    "model_link": "https://replika.com",
+    "prompt": "<instruction>Talk about my day.</instruction>"
+  },
+  {
+    "slug": "pi",
+    "category": "Life",
+    "title": "Pi (Inflection)",
+    "problem": "Supportive chat?",
+    "solution": "High EQ personal AI.",
+    "model_name": "Pi",
+    "model_link": "https://pi.ai",
+    "prompt": "<instruction>I'm feeling stressed today.</instruction>"
+  },
+  {
+    "slug": "zapier",
+    "category": "Business",
+    "title": "Zapier AI",
+    "problem": "Automation?",
+    "solution": "Connect 6000+ apps.",
+    "model_name": "Zapier",
+    "model_link": "https://zapier.com",
+    "prompt": "<instruction>If I get a lead, email Slack.</instruction>"
+  },
+  {
+    "slug": "make",
+    "category": "Business",
+    "title": "Make",
+    "problem": "Visual automation?",
+    "solution": "Complex workflows.",
+    "model_name": "Make",
+    "model_link": "https://make.com",
+    "prompt": "<instruction>Build a scenario.</instruction>"
+  },
+  {
+    "slug": "beautiful-ai",
+    "category": "Design",
+    "title": "Beautiful.ai",
+    "problem": "Design slides?",
+    "solution": "Smart formatting for decks.",
+    "model_name": "Beautiful",
+    "model_link": "https://beautiful.ai",
+    "prompt": "<instruction>Add a chart to this slide.</instruction>"
+  },
+  {
+    "slug": "tome",
+    "category": "Business",
+    "title": "Tome",
+    "problem": "Storytelling slides?",
+    "solution": "Narrative deck builder.",
+    "model_name": "Tome",
+    "model_link": "https://tome.app",
+    "prompt": "<instruction>Create a pitch deck.</instruction>"
+  },
+  {
+    "slug": "canva",
+    "category": "Design",
+    "title": "Canva Magic",
+    "problem": "Social media graphics?",
+    "solution": "All-in-one design AI.",
+    "model_name": "Canva",
+    "model_link": "https://canva.com",
+    "prompt": "<instruction>Design a birthday post.</instruction>"
+  },
+  {
+    "slug": "adobe-firefly",
+    "category": "Image",
+    "title": "Adobe Firefly",
+    "problem": "Safe commercial art?",
+    "solution": "Copyright-safe image gen.",
+    "model_name": "Firefly",
+    "model_link": "https://firefly.adobe.com",
+    "prompt": "<instruction>Generate a floral pattern.</instruction>"
+  },
+  {
+    "slug": "leonardo",
+    "category": "Image",
+    "title": "Leonardo.ai",
+    "problem": "Game assets?",
+    "solution": "Fine-tuned models for assets.",
+    "model_name": "Leonardo",
+    "model_link": "https://leonardo.ai",
+    "prompt": "<instruction>RPG character portrait.</instruction>"
+  },
+  {
+    "slug": "consensus",
+    "category": "Research",
+    "title": "Consensus",
+    "problem": "Scientific answers?",
+    "solution": "Search academic papers.",
+    "model_name": "Consensus",
+    "model_link": "https://consensus.app",
+    "prompt": "<instruction>Does coffee affect sleep?</instruction>"
+  },
+  {
+    "slug": "scholar-ai",
+    "category": "Research",
+    "title": "ScholarAI",
+    "problem": "Access journals?",
+    "solution": "Deep search literature.",
+    "model_name": "ScholarAI",
+    "model_link": "https://scholarai.io",
+    "prompt": "<instruction>Find papers on mRNA.</instruction>"
+  },
+  {
+    "slug": "scite",
+    "category": "Research",
+    "title": "Scite",
+    "problem": "Check citations?",
+    "solution": "Smart citation analysis.",
+    "model_name": "Scite",
+    "model_link": "https://scite.ai",
+    "prompt": "<instruction>Is this paper refuted?</instruction>"
+  },
+  {
+    "slug": "elicit",
+    "category": "Research",
+    "title": "Elicit",
+    "problem": "Literature review?",
+    "solution": "Automate research reviews.",
+    "model_name": "Elicit",
+    "model_link": "https://elicit.com",
+    "prompt": "<instruction>Summarize top 5 papers.</instruction>"
+  },
+  {
+    "slug": "chatpdf",
+    "category": "Research",
+    "title": "ChatPDF",
+    "problem": "Chat with docs?",
+    "solution": "Simple PDF chat interface.",
+    "model_name": "ChatPDF",
+    "model_link": "https://chatpdf.com",
+    "prompt": "<instruction>Summarize this file.</instruction>"
+  },
+  {
+    "slug": "murf",
+    "category": "Voice",
+    "title": "Murf.ai",
+    "problem": "Studio voiceover?",
+    "solution": "Professional voice AI.",
+    "model_name": "Murf",
+    "model_link": "https://murf.ai",
+    "prompt": "<instruction>Narrate this explainer video.</instruction>"
+  },
+  {
+    "slug": "speechify",
+    "category": "Voice",
+    "title": "Speechify",
+    "problem": "Listen to reading?",
+    "solution": "Text reader for articles.",
+    "model_name": "Speechify",
+    "model_link": "https://speechify.com",
+    "prompt": "<instruction>Read this article to me.</instruction>"
+  },
+  {
+    "slug": "synthesia",
+    "category": "Video",
+    "title": "Synthesia",
+    "problem": "Corporate training?",
+    "solution": "AI avatars for enterprise.",
+    "model_name": "Synthesia",
+    "model_link": "https://synthesia.io",
+    "prompt": "<instruction>Create a training module.</instruction>"
+  },
+  {
+    "slug": "d-id",
+    "category": "Video",
+    "title": "D-ID",
+    "problem": "Talking heads?",
+    "solution": "Animate faces from audio.",
+    "model_name": "D-ID",
+    "model_link": "https://d-id.com",
+    "prompt": "<instruction>Make this photo speak.</instruction>"
+  },
+  {
+    "slug": "hume",
+    "category": "Voice",
+    "title": "Hume AI",
+    "problem": "Emotional voice?",
+    "solution": "Voice AI that understands tone.",
+    "model_name": "Hume",
+    "model_link": "https://hume.ai",
+    "prompt": "<instruction>Analyze my tone of voice.</instruction>"
+  },
+  {
+    "slug": "mistral-large",
+    "category": "Coding",
+    "title": "Mistral Large",
+    "problem": "European AI?",
+    "solution": "Top open-weight model.",
+    "model_name": "Mistral",
+    "model_link": "https://mistral.ai",
+    "prompt": "<instruction>Explain French history.</instruction>"
+  },
+  {
+    "slug": "llama-3",
+    "category": "Coding",
+    "title": "Llama 3",
+    "problem": "Meta's AI?",
+    "solution": "State of the art open model.",
+    "model_name": "Llama",
+    "model_link": "https://llama.meta.com",
+    "prompt": "<instruction>Run locally.</instruction>"
+  },
+  {
+    "slug": "stable-diffusion-3",
+    "category": "Image",
+    "title": "Stable Diffusion 3",
+    "problem": "Open image gen?",
+    "solution": "High quality open image model.",
+    "model_name": "Stability",
+    "model_link": "https://stability.ai",
+    "prompt": "<instruction>Generate a landscape.</instruction>"
+  },
+  {
+    "slug": "stable-audio",
+    "category": "Music",
+    "title": "Stable Audio",
+    "problem": "Sound FX?",
+    "solution": "Generate audio and SFX.",
+    "model_name": "Stability",
+    "model_link": "https://stableaudio.com",
+    "prompt": "<instruction>Drum loop 120 bpm.</instruction>"
+  },
+  {
+    "slug": "notion-ai",
+    "category": "Business",
+    "title": "Notion AI",
+    "problem": "Docs and notes?",
+    "solution": "AI inside your workspace.",
+    "model_name": "Notion",
+    "model_link": "https://notion.so",
+    "prompt": "<instruction>Summarize this page.</instruction>"
+  },
+  {
+    "slug": "coda-ai",
+    "category": "Business",
+    "title": "Coda AI",
+    "problem": "Smart docs?",
+    "solution": "AI assistant in docs.",
+    "model_name": "Coda",
+    "model_link": "https://coda.io",
+    "prompt": "<instruction>Draft a table from this text.</instruction>"
+  },
+  {
+    "slug": "loom-ai",
+    "category": "Business",
+    "title": "Loom AI",
+    "problem": "Video messages?",
+    "solution": "Auto titles and summaries for Looms.",
+    "model_name": "Loom",
+    "model_link": "https://loom.com",
+    "prompt": "<instruction>Summarize this video.</instruction>"
+  },
+  {
+    "slug": "rewind",
+    "category": "Life",
+    "title": "Rewind",
+    "problem": "Forgot something?",
+    "solution": "Records everything you see/say.",
+    "model_name": "Rewind",
+    "model_link": "https://rewind.ai",
+    "prompt": "<instruction>What did I do yesterday?</instruction>"
+  },
+  {
+    "slug": "mem",
+    "category": "Life",
+    "title": "Mem",
+    "problem": "Organize thoughts?",
+    "solution": "Self-organizing workspace.",
+    "model_name": "Mem",
+    "model_link": "https://mem.ai",
+    "prompt": "<instruction>Find my note about travel.</instruction>"
+  },
+  {
+    "slug": "you-com",
+    "category": "Research",
+    "title": "You.com",
+    "problem": "Custom search?",
+    "solution": "Personalized AI search.",
+    "model_name": "You",
+    "model_link": "https://you.com",
+    "prompt": "<instruction>Search for Python tutorials.</instruction>"
+  },
+  {
+    "slug": "brave-leo",
+    "category": "Research",
+    "title": "Brave Leo",
+    "problem": "Private browser AI?",
+    "solution": "AI built into Brave browser.",
+    "model_name": "Leo",
+    "model_link": "https://brave.com/leo",
+    "prompt": "<instruction>Summarize this webpage.</instruction>"
+  },
+  {
+    "slug": "arc-max",
+    "category": "Research",
+    "title": "Arc Max",
+    "problem": "Browser assistant?",
+    "solution": "AI features in Arc browser.",
+    "model_name": "Arc",
+    "model_link": "https://arc.net",
+    "prompt": "<instruction>Rename this tab.</instruction>"
+  },
+  {
+    "slug": "humanizer",
+    "category": "Writing",
+    "title": "Humanizer Pro",
+    "problem": "Bypass detection?",
+    "solution": "Makes AI text sound human.",
+    "model_name": "Humanizer",
+    "model_link": "https://chatgpt.com",
+    "prompt": "<instruction>Humanize this text.</instruction>"
+  },
+  {
+    "slug": "logo-creator",
+    "category": "Design",
+    "title": "Logo Creator",
+    "problem": "Fast logos?",
+    "solution": "Custom GPT for logos.",
+    "model_name": "LogoGPT",
+    "model_link": "https://chatgpt.com",
+    "prompt": "<instruction>Make a logo for a gym.</instruction>"
+  },
+  {
+    "slug": "v0",
+    "category": "Coding",
+    "title": "v0 (Vercel)",
+    "problem": "UI Generation?",
+    "solution": "Text to React/Tailwind code.",
+    "model_name": "v0",
+    "model_link": "https://v0.dev",
+    "prompt": "<instruction>Dashboard with dark mode.</instruction>"
+  },
+  {
+    "slug": "bolt",
+    "category": "Coding",
+    "title": "Bolt.new",
+    "problem": "Full stack apps?",
+    "solution": "Build runs in browser.",
+    "model_name": "Bolt",
+    "model_link": "https://bolt.new",
+    "prompt": "<instruction>Build a todo app.</instruction>"
+  },
+  {
+    "slug": "lovable",
+    "category": "Coding",
+    "title": "Lovable",
+    "problem": "No-code apps?",
+    "solution": "GPT to web app.",
+    "model_name": "Lovable",
+    "model_link": "https://lovable.dev",
+    "prompt": "<instruction>Create a landing page.</instruction>"
+  },
+  {
+    "slug": "windsurf",
+    "category": "Coding",
+    "title": "Windsurf",
+    "problem": "IDE with flow?",
+    "solution": "Context-aware coding agent.",
+    "model_name": "Windsurf",
+    "model_link": "https://codeium.com/windsurf",
+    "prompt": "<instruction>Explain this repo.</instruction>"
+  },
+  {
+    "slug": "haiper-video",
+    "category": "Video",
+    "title": "Haiper",
+    "problem": "Realistic short videos?",
+    "solution": "New competitor to Sora for 2s-4s clips.",
+    "model_name": "Haiper",
+    "model_link": "https://haiper.ai",
+    "prompt": "<instruction>Cinematic shot of a robot barista.</instruction>"
+  },
+  {
+    "slug": "viggle",
+    "category": "Video",
+    "title": "Viggle",
+    "problem": "Character animation?",
+    "solution": "Animate any character with a dance video.",
+    "model_name": "Viggle",
+    "model_link": "https://viggle.ai",
+    "prompt": "<instruction>Animate this joker image dancing.</instruction>"
+  },
+  {
+    "slug": "domo-ai",
+    "category": "Video",
+    "title": "DomoAI",
+    "problem": "Video to Anime?",
+    "solution": "Turns real video into anime style.",
+    "model_name": "Domo",
+    "model_link": "https://domoai.app",
+    "prompt": "<instruction>Turn this video into Studio Ghibli style.</instruction>"
+  },
+  {
+    "slug": "play-ht",
+    "category": "Voice",
+    "title": "Play.ht",
+    "problem": "Ultra-realistic cloning?",
+    "solution": "Clones voices with emotion.",
+    "model_name": "PlayHT",
+    "model_link": "https://play.ht",
+    "prompt": "<instruction>Clone my voice from this audio file.</instruction>"
+  },
+  {
+    "slug": "artbreeder",
+    "category": "Image",
+    "title": "Artbreeder",
+    "problem": "Remix images?",
+    "solution": "Mix genes of characters/portraits.",
+    "model_name": "Artbreeder",
+    "model_link": "https://artbreeder.com",
+    "prompt": "<instruction>Mix these two faces together.</instruction>"
+  },
+  {
+    "slug": "playground-ai",
+    "category": "Image",
+    "title": "Playground",
+    "problem": "Free Midjourney?",
+    "solution": "Great free alternative for art.",
+    "model_name": "Playground",
+    "model_link": "https://playgroundai.com",
+    "prompt": "<instruction>Cyberpunk city, cinematic lighting.</instruction>"
+  },
+  {
+    "slug": "civitai",
+    "category": "Image",
+    "title": "CivitAI",
+    "problem": "Specific styles?",
+    "solution": "Hub for Stable Diffusion LoRAs.",
+    "model_name": "CivitAI",
+    "model_link": "https://civitai.com",
+    "prompt": "<instruction>Search for 'Anime Style LoRA'.</instruction>"
+  },
+  {
+    "slug": "clipdrop",
+    "category": "Image",
+    "title": "Clipdrop",
+    "problem": "Edit photos fast?",
+    "solution": "Remove background, relight, uncrop.",
+    "model_name": "Clipdrop",
+    "model_link": "https://clipdrop.co",
+    "prompt": "<instruction>Relight this portrait from the left.</instruction>"
+  },
+  {
+    "slug": "photoroom",
+    "category": "Image",
+    "title": "PhotoRoom",
+    "problem": "Product photography?",
+    "solution": "AI backgrounds for products.",
+    "model_name": "PhotoRoom",
+    "model_link": "https://photoroom.com",
+    "prompt": "<instruction>Put this shoe on a marble table.</instruction>"
+  },
+  {
+    "slug": "rytr",
+    "category": "Writing",
+    "title": "Rytr",
+    "problem": "Fast copywriting?",
+    "solution": "Lightweight AI writer.",
+    "model_name": "Rytr",
+    "model_link": "https://rytr.me",
+    "prompt": "<instruction>Write a catchy email subject line.</instruction>"
+  },
+  {
+    "slug": "sudowrite",
+    "category": "Writing",
+    "title": "Sudowrite",
+    "problem": "Writing a novel?",
+    "solution": "Best AI for fiction authors.",
+    "model_name": "Sudowrite",
+    "model_link": "https://sudowrite.com",
+    "prompt": "<instruction>Describe the smell of the rain.</instruction>"
+  },
+  {
+    "slug": "wordtune",
+    "category": "Writing",
+    "title": "Wordtune",
+    "problem": "Rewrite sentences?",
+    "solution": "Rephraser plugin for Chrome.",
+    "model_name": "Wordtune",
+    "model_link": "https://wordtune.com",
+    "prompt": "<instruction>Make this sentence more formal.</instruction>"
+  },
+  {
+    "slug": "surfer-seo",
+    "category": "Business",
+    "title": "Surfer SEO",
+    "problem": "Rank on Google?",
+    "solution": "Analyzes keywords for SEO.",
+    "model_name": "Surfer",
+    "model_link": "https://surferseo.com",
+    "prompt": "<instruction>Audit my article for 'Best AI Tools'.</instruction>"
+  },
+  {
+    "slug": "harpa-ai",
+    "category": "Research",
+    "title": "Harpa AI",
+    "problem": "Web automation?",
+    "solution": "Chrome extension for tracking web changes.",
+    "model_name": "Harpa",
+    "model_link": "https://harpa.ai",
+    "prompt": "<instruction>Monitor this price for drops.</instruction>"
+  },
+  {
+    "slug": "merlin",
+    "category": "Chat",
+    "title": "Merlin",
+    "problem": "GPT on any site?",
+    "solution": "Access GPT-4 on LinkedIn/Twitter.",
+    "model_name": "Merlin",
+    "model_link": "https://getmerlin.in",
+    "prompt": "<instruction>Reply to this LinkedIn comment.</instruction>"
+  },
+  {
+    "slug": "sider",
+    "category": "Chat",
+    "title": "Sider",
+    "problem": "Sidebar AI?",
+    "solution": "ChatGPT/Claude in browser sidebar.",
+    "model_name": "Sider",
+    "model_link": "https://sider.ai",
+    "prompt": "<instruction>Summarize this YouTube video.</instruction>"
+  },
+  {
+    "slug": "codium-ai",
+    "category": "Coding",
+    "title": "Codium",
+    "problem": "Unit testing?",
+    "solution": "Generates perfect tests for code.",
+    "model_name": "Codium",
+    "model_link": "https://codium.ai",
+    "prompt": "<instruction>Write tests for this Python class.</instruction>"
+  },
+  {
+    "slug": "blackbox",
+    "category": "Coding",
+    "title": "Blackbox AI",
+    "problem": "Copy code from video?",
+    "solution": "Extracts code from videos/images.",
+    "model_name": "Blackbox",
+    "model_link": "https://blackbox.ai",
+    "prompt": "<instruction>Extract code from this screenshot.</instruction>"
+  },
+  {
+    "slug": "amazon-q",
+    "category": "Coding",
+    "title": "Amazon Q",
+    "problem": "AWS Help?",
+    "solution": "Expert on AWS cloud infrastructure.",
+    "model_name": "Amazon Q",
+    "model_link": "https://aws.amazon.com/q",
+    "prompt": "<instruction>How do I configure S3 buckets?</instruction>"
+  },
+  {
+    "slug": "tripo-3d",
+    "category": "3D",
+    "title": "Tripo3D",
+    "problem": "Fast 3D models?",
+    "solution": "Generates 3D assets in seconds.",
+    "model_name": "Tripo",
+    "model_link": "https://tripo3d.ai",
+    "prompt": "<instruction>A statue of a dragon.</instruction>"
+  },
+  {
+    "slug": "csm-cube",
+    "category": "3D",
+    "title": "CSM (Cube)",
+    "problem": "Image to 3D?",
+    "solution": "Turns single photo into 3D mesh.",
+    "model_name": "CSM",
+    "model_link": "https://csm.ai",
+    "prompt": "<instruction>Upload photo -> Get 3D Model.</instruction>"
+  },
+  {
+    "slug": "beatoven",
+    "category": "Music",
+    "title": "Beatoven",
+    "problem": "Background music?",
+    "solution": "Royalty-free mood music.",
+    "model_name": "Beatoven",
+    "model_link": "https://beatoven.ai",
+    "prompt": "<instruction>Lo-fi chill track for coding.</instruction>"
+  },
+  {
+    "slug": "soundraw",
+    "category": "Music",
+    "title": "Soundraw",
+    "problem": "Custom beats?",
+    "solution": "Customize length and mood of songs.",
+    "model_name": "Soundraw",
+    "model_link": "https://soundraw.io",
+    "prompt": "<instruction>3 minute energetic rock intro.</instruction>"
+  },
+  {
+    "slug": "voicemod",
+    "category": "Voice",
+    "title": "Voicemod",
+    "problem": "Voice changer?",
+    "solution": "Real-time voice changing for streams.",
+    "model_name": "Voicemod",
+    "model_link": "https://voicemod.net",
+    "prompt": "<instruction>Change voice to 'Robot'.</instruction>"
+  },
+  {
+    "slug": "cleanvoice",
+    "category": "Voice",
+    "title": "Cleanvoice",
+    "problem": "Podcast editing?",
+    "solution": "Removes stuttering and filler words.",
+    "model_name": "Cleanvoice",
+    "model_link": "https://cleanvoice.ai",
+    "prompt": "<instruction>Upload audio -> Remove 'uhms'.</instruction>"
+  },
+  {
+    "slug": "slides-ai",
+    "category": "Business",
+    "title": "SlidesAI",
+    "problem": "Google Slides?",
+    "solution": "Auto-generates slides inside Google.",
+    "model_name": "SlidesAI",
+    "model_link": "https://slidesai.io",
+    "prompt": "<instruction>Text to Presentation.</instruction>"
+  },
+  {
+    "slug": "decktopus",
+    "category": "Business",
+    "title": "Decktopus",
+    "problem": "Sales decks?",
+    "solution": "Templates optimized for sales.",
+    "model_name": "Decktopus",
+    "model_link": "https://decktopus.com",
+    "prompt": "<instruction>Deck for SaaS pricing.</instruction>"
+  },
+  {
+    "slug": "adcreative",
+    "category": "Business",
+    "title": "AdCreative",
+    "problem": "Banner ads?",
+    "solution": "Generates 100s of ad variations.",
+    "model_name": "AdCreative",
+    "model_link": "https://adcreative.ai",
+    "prompt": "<instruction>Ads for Black Friday sale.</instruction>"
+  },
+  {
+    "slug": "predis",
+    "category": "Business",
+    "title": "Predis.ai",
+    "problem": "Social posts?",
+    "solution": "Generates visuals + captions.",
+    "model_name": "Predis",
+    "model_link": "https://predis.ai",
+    "prompt": "<instruction>Instagram carousel for fitness.</instruction>"
+  },
+  {
+    "slug": "gong",
+    "category": "Business",
+    "title": "Gong",
+    "problem": "Sales coaching?",
+    "solution": "Analyzes sales calls for insights.",
+    "model_name": "Gong",
+    "model_link": "https://gong.io",
+    "prompt": "<instruction>Analyze my closing rate.</instruction>"
+  },
+  {
+    "slug": "law-gpt",
+    "category": "Business",
+    "title": "Harvey AI",
+    "problem": "Legal help?",
+    "solution": "AI for law firms and contracts.",
+    "model_name": "Harvey",
+    "model_link": "https://harvey.ai",
+    "prompt": "<instruction>Review this NDA clause.</instruction>"
+  },
+  {
+    "slug": "do-not-pay",
+    "category": "Life",
+    "title": "DoNotPay",
+    "problem": "Fight tickets?",
+    "solution": "Robot lawyer for consumer rights.",
+    "model_name": "DoNotPay",
+    "model_link": "https://donotpay.com",
+    "prompt": "<instruction>Dispute this parking ticket.</instruction>"
+  },
+  {
+    "slug": "goblin-tools",
+    "category": "Life",
+    "title": "Goblin Tools",
+    "problem": "Overwhelmed?",
+    "solution": "Breaks tasks into tiny steps (ADHD friendly).",
+    "model_name": "Goblin",
+    "model_link": "https://goblin.tools",
+    "prompt": "<instruction>Break down 'Clean the house'.</instruction>"
+  },
+  {
+    "slug": "yoodli",
+    "category": "Life",
+    "title": "Yoodli",
+    "problem": "Public speaking?",
+    "solution": "Speech coach for confidence.",
+    "model_name": "Yoodli",
+    "model_link": "https://yoodli.ai",
+    "prompt": "<instruction>Practice my wedding toast.</instruction>"
+  },
+  {
+    "slug": "ai-dungeon",
+    "category": "Life",
+    "title": "AI Dungeon",
+    "problem": "Infinite game?",
+    "solution": "Text adventure that never ends.",
+    "model_name": "AI Dungeon",
+    "model_link": "https://aidungeon.io",
+    "prompt": "<instruction>Start a fantasy adventure.</instruction>"
+  },
+  {
+    "slug": "skybox",
+    "category": "3D",
+    "title": "Skybox",
+    "problem": "VR Worlds?",
+    "solution": "Generates 360-degree skyboxes.",
+    "model_name": "Blockade",
+    "model_link": "https://skybox.blockadelabs.com",
+    "prompt": "<instruction>Martian landscape, 360 view.</instruction>"
+  },
+  {
+    "slug": "zerogpt",
+    "category": "Writing",
+    "title": "ZeroGPT",
+    "problem": "AI Detection?",
+    "solution": "Checks if text is AI written.",
+    "model_name": "ZeroGPT",
+    "model_link": "https://zerogpt.com",
+    "prompt": "<instruction>Is this essay written by AI?</instruction>"
+  },
+  {
+    "slug": "originality",
+    "category": "Writing",
+    "title": "Originality.ai",
+    "problem": "Plagiarism check?",
+    "solution": "Enterprise AI detection.",
+    "model_name": "Originality",
+    "model_link": "https://originality.ai",
+    "prompt": "<instruction>Scan this article.</instruction>"
+  },
+  {
+    "slug": "futurepedia",
+    "category": "Research",
+    "title": "Futurepedia",
+    "problem": "Find more tools?",
+    "solution": "Largest AI directory.",
+    "model_name": "Futurepedia",
+    "model_link": "https://futurepedia.io",
+    "prompt": "<instruction>Find tools for architecture.</instruction>"
+  },
+  {
+    "slug": "theres-an-ai",
+    "category": "Research",
+    "title": "There's An AI",
+    "problem": "Is there an AI for X?",
+    "solution": "Search engine for AI tools.",
+    "model_name": "TAAqa",
+    "model_link": "https://theresanaiforthat.com",
+    "prompt": "<instruction>Find AI for knitting patterns.</instruction>"
+  },
+  {
+    "slug": "superhuman",
+    "category": "Business",
+    "title": "Superhuman",
+    "problem": "Email overload?",
+    "solution": "Fastest email experience with AI.",
+    "model_name": "Superhuman",
+    "model_link": "https://superhuman.com",
+    "prompt": "<instruction>Draft a reply instantly.</instruction>"
+  },
+  {
+    "slug": "tldv",
+    "category": "Business",
+    "title": "tl;dv",
+    "problem": "Meeting recorder?",
+    "solution": "Free recorder for GMeet/Zoom.",
+    "model_name": "tl;dv",
+    "model_link": "https://tldv.io",
+    "prompt": "<instruction>Timestamp the important moments.</instruction>"
+  },
+  {
+    "slug": "fathom",
+    "category": "Business",
+    "title": "Fathom",
+    "problem": "Zoom Note taker?",
+    "solution": "Free personal note taker.",
+    "model_name": "Fathom",
+    "model_link": "https://fathom.video",
+    "prompt": "<instruction>Sync notes to HubSpot.</instruction>"
+  },
+  {
+    "slug": "poised",
+    "category": "Life",
+    "title": "Poised",
+    "problem": "Speaking skills?",
+    "solution": "Real-time communication coach.",
+    "model_name": "Poised",
+    "model_link": "https://poised.com",
+    "prompt": "<instruction>Am I speaking too fast?</instruction>"
+  },
+  {
+    "slug": "synthesys",
+    "category": "Video",
+    "title": "Synthesys",
+    "problem": "Commercial avatars?",
+    "solution": "Avatars for ads.",
+    "model_name": "Synthesys",
+    "model_link": "https://synthesys.io",
+    "prompt": "<instruction>Create a spokesperson video.</instruction>"
+  },
+  {
+    "slug": "vidnoz",
+    "category": "Video",
+    "title": "Vidnoz",
+    "problem": "Free AI Video?",
+    "solution": "Suite of free video tools.",
+    "model_name": "Vidnoz",
+    "model_link": "https://vidnoz.com",
+    "prompt": "<instruction>Turn photo to video.</instruction>"
+  },
+  {
+    "slug": "fliki",
+    "category": "Video",
+    "title": "Fliki",
+    "problem": "Blog to Video?",
+    "solution": "Turns articles into videos.",
+    "model_name": "Fliki",
+    "model_link": "https://fliki.ai",
+    "prompt": "<instruction>Paste URL -> Get Video.</instruction>"
+  },
+  {
+    "slug": "invideo-ai",
+    "category": "Video",
+    "title": "InVideo",
+    "problem": "YouTube shorts?",
+    "solution": "Text to video editor.",
+    "model_name": "InVideo",
+    "model_link": "https://invideo.io",
+    "prompt": "<instruction>Video about space facts.</instruction>"
+  },
+  {
+    "slug": "pictory",
+    "category": "Video",
+    "title": "Pictory",
+    "problem": "Long video to short?",
+    "solution": "Auto-highlights webinars.",
+    "model_name": "Pictory",
+    "model_link": "https://pictory.ai",
+    "prompt": "<instruction>Extract highlights from this Zoom recording.</instruction>"
   }
-]
-
