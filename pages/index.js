@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import Link from 'next/link';
-import { useState, useEffect } from 'react';
+import { useState } from 'react'; // Removed unused 'useEffect'
 
 // --- DATA LOADING ---
 export async function getStaticProps() {
@@ -28,8 +28,8 @@ export default function Home({ tools, sidebarData }) {
   
   // Mobile & UI State
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [openCategories, setOpenCategories] = useState({}); // Track expanded categories
-  const [expandedPrompt, setExpandedPrompt] = useState(null); // Track expanded prompt text
+  const [openCategories, setOpenCategories] = useState({});
+  const [expandedPrompt, setExpandedPrompt] = useState(null);
   const [showOptimizer, setShowOptimizer] = useState(false);
   
   // Optimizer State
@@ -120,16 +120,18 @@ export default function Home({ tools, sidebarData }) {
           transition: transform 0.3s ease;
         }
 
-        /* MOBILE STYLES */
+        /* MOBILE OVERRIDES */
+        .mobile-only { display: none; }
+
         @media (max-width: 768px) {
           .sidebar-container { transform: translateX(-100%); width: 80%; max-width: 300px; }
           .sidebar-container.open { transform: translateX(0); }
           .main-content { margin-left: 0 !important; width: 100% !important; padding: 20px !important; }
           .mobile-header { display: flex !important; }
-          .desktop-layout { display: block; }
+          .mobile-only { display: block; }
         }
 
-        /* DESKTOP STYLES */
+        /* DESKTOP DEFAULTS */
         @media (min-width: 769px) {
           .mobile-header { display: none !important; }
           .main-content { margin-left: 280px; width: calc(100% - 280px); }
@@ -178,11 +180,10 @@ export default function Home({ tools, sidebarData }) {
             <div style={{ fontWeight: '800', fontSize: '1.1rem' }}>AI Center</div>
           </div>
           {/* Close button for mobile */}
-          <button onClick={() => setIsSidebarOpen(false)} className="mobile-only" style={{ background: 'transparent', border: 'none', color: 'white', fontSize: '1.5rem', cursor: 'pointer', display: 'none' }}>✕</button>
-          <style jsx>{` @media(max-width: 768px) { .mobile-only { display: block !important; } } `}</style>
+          <button onClick={() => setIsSidebarOpen(false)} className="mobile-only" style={{ background: 'transparent', border: 'none', color: 'white', fontSize: '1.5rem', cursor: 'pointer' }}>✕</button>
         </div>
 
-        {/* 1. MAGIC BUTTON (Optimizer) */}
+        {/* 1. OPTIMIZER BUTTON */}
         <div className="nav-item" onClick={() => setShowOptimizer(true)} style={{ background: 'rgba(96, 165, 250, 0.1)', borderLeft: '3px solid #60a5fa', color: 'white', margin: '10px 0' }}>
           <span style={{ marginRight: '10px' }}>✨</span>
           <span style={{ fontWeight: 'bold' }}>GPT-5 Optimizer</span>
@@ -194,13 +195,13 @@ export default function Home({ tools, sidebarData }) {
         <div style={{ flex: 1 }}>
           {sidebarData && sidebarData.map((group, idx) => (
             <div key={idx}>
-              {/* Category Header (Click to Toggle) */}
+              {/* Category Header */}
               <div className="group-header" onClick={() => toggleCategory(idx)}>
                 <span>{group.category}</span>
                 <span>{openCategories[idx] ? '−' : '+'}</span>
               </div>
               
-              {/* Items List (Show if Open) */}
+              {/* Items List */}
               {openCategories[idx] && group.items.map((item, i) => (
                 <div key={i}>
                   <div className="nav-item" onClick={() => item.type === 'gpt' ? window.open(item.link) : togglePrompt(item.label)}>
@@ -208,7 +209,7 @@ export default function Home({ tools, sidebarData }) {
                     <span style={{ overflow: 'hidden', textOverflow: 'ellipsis' }}>{item.label}</span>
                   </div>
                   
-                  {/* Expanded Prompt Text */}
+                  {/* Expanded Prompt */}
                   {item.type === 'prompt' && expandedPrompt === item.label && (
                     <div className="prompt-preview">
                       <div style={{ marginBottom: '10px', lineHeight: '1.5' }}>{item.content}</div>
@@ -318,3 +319,4 @@ export default function Home({ tools, sidebarData }) {
     </div>
   );
 }
+
