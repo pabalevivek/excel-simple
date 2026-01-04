@@ -16,187 +16,265 @@ export default function Home({ tools }) {
   const [activeCategory, setActiveCategory] = useState('All');
   const [isFallback, setIsFallback] = useState(false);
 
-  // --- 1. COLOR SYSTEM ---
-  const categoryColors = {
-    'All': '#111',
-    'Image': '#8b5cf6', 
-    'Video': '#ef4444', 
-    'Coding': '#3b82f6', 
-    'Writing': '#f59e0b', 
-    'Research': '#10b981', 
-    'Business': '#64748b', 
-    'Music': '#ec4899', 
-    'Voice': '#f97316', 
-    'Reasoning': '#7c3aed',
-    '3D': '#06b6d4'
+  // --- 1. PROFESSIONAL COLOR PALETTE (Vibrant & Modern) ---
+  const categoryConfig = {
+    'All':      { color: '#334155', bg: '#f1f5f9', icon: '🌍' },
+    'Image':    { color: '#a855f7', bg: '#f3e8ff', icon: '🎨' }, // Purple
+    'Video':    { color: '#ef4444', bg: '#fee2e2', icon: '🎥' }, // Red
+    'Coding':   { color: '#3b82f6', bg: '#dbeafe', icon: '💻' }, // Blue
+    'Writing':  { color: '#f59e0b', bg: '#fef3c7', icon: '✍️' }, // Amber
+    'Research': { color: '#10b981', bg: '#d1fae5', icon: '🔬' }, // Emerald
+    'Business': { color: '#6366f1', bg: '#e0e7ff', icon: '💼' }, // Indigo
+    'Music':    { color: '#ec4899', bg: '#fce7f3', icon: '🎵' }, // Pink
+    'Voice':    { color: '#f97316', bg: '#ffedd5', icon: '🎙️' }, // Orange
+    'Reasoning':{ color: '#8b5cf6', bg: '#ede9fe', icon: '🧠' }, // Violet
+    '3D':       { color: '#06b6d4', bg: '#cffafe', icon: '🧊' }, // Cyan
+    'Life':     { color: '#14b8a6', bg: '#ccfbf1', icon: '🌱' }  // Teal
   };
 
-  const getCategoryColor = (cat) => categoryColors[cat] || '#666';
-  const categories = Object.keys(categoryColors).map(key => ({ id: key, label: key }));
+  const getConfig = (cat) => categoryConfig[cat] || categoryConfig['All'];
+  const categories = Object.keys(categoryConfig).filter(k => k !== 'Life').map(key => ({ id: key, ...categoryConfig[key] }));
 
   // --- 2. SEARCH HANDLER ---
   const handleSearch = () => {
     setQuery(inputValue.toLowerCase().trim());
-    setActiveCategory('All'); // Force reset to 'All' so we search everything
+    setActiveCategory('All');
   };
 
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') handleSearch();
   };
 
-  // --- 3. OPTIMIZED FILTER LOGIC ---
+  // --- 3. FILTER LOGIC ---
   let displayTools = tools.filter(tool => {
-    // A. Category Check
     if (activeCategory !== 'All' && tool.category !== activeCategory) return false;
     
-    // B. Search Check (If query exists)
     if (query) {
-      // Create a "Searchable String" that includes Title, Model Name, and Description
-      const searchableText = `${tool.title} ${tool.model_name} ${tool.problem} ${tool.solution} ${tool.category}`.toLowerCase();
+      const toolText = `${tool.title} ${tool.model_name} ${tool.problem} ${tool.solution} ${tool.category}`.toLowerCase();
       
-      // 1. Direct Match: If the tool name literally contains the search query (e.g. "gemini")
-      if (searchableText.includes(query)) return true;
-
-      // 2. Fuzzy Match: Split query into words (e.g. "edit video")
-      const searchTerms = query.split(' ').filter(t => t.trim().length > 0);
+      // Exact Match (Priority)
+      if (toolText.includes(query)) return true;
       
-      // Check if ANY of the words match (e.g. "video" matches)
-      return searchTerms.some(term => searchableText.includes(term));
+      // Fuzzy Match
+      const searchTerms = query.split(' ').filter(t => t.trim().length > 1);
+      return searchTerms.some(term => toolText.includes(term));
     }
-    
-    return true; // If no query, show everything in the category
+    return true;
   });
 
-  // --- 4. SORTING (Smart Ranking) ---
+  // --- 4. SORTING ---
   if (query) {
     displayTools.sort((a, b) => {
-      // Rule 1: Exact Title Match gets priority (e.g. "Gemini" -> Gemini Pro)
-      const aTitle = a.title.toLowerCase();
-      const bTitle = b.title.toLowerCase();
-      const aMatch = aTitle.includes(query);
-      const bMatch = bTitle.includes(query);
-      
-      if (aMatch && !bMatch) return -1; // A comes first
-      if (!aMatch && bMatch) return 1;  // B comes first
-      
-      // Rule 2: "All-in-One" models come next
+      const aMatch = a.title.toLowerCase().includes(query);
+      const bMatch = b.title.toLowerCase().includes(query);
+      if (aMatch && !bMatch) return -1;
+      if (!aMatch && bMatch) return 1;
       return (b.is_multimodal === true) - (a.is_multimodal === true);
     });
   } else {
-    // Default Sort: All-in-One at top
     displayTools.sort((a, b) => (b.is_multimodal === true) - (a.is_multimodal === true));
   }
 
-  // --- 5. SAFETY NET ---
+  // --- 5. FALLBACK ---
   useEffect(() => {
-    if (query && displayTools.length === 0) {
-      setIsFallback(true);
-    } else {
-      setIsFallback(false);
-    }
+    setIsFallback(query && displayTools.length === 0);
   }, [query, displayTools.length]);
 
   const finalTools = (isFallback && query) ? tools.slice(0, 8) : displayTools;
 
   return (
-    <div style={{ fontFamily: 'sans-serif', background: '#f8fafc', minHeight: '100vh', color: '#111' }}>
+    <div style={{ fontFamily: '"Inter", -apple-system, BlinkMacSystemFont, sans-serif', background: '#f8fafc', minHeight: '100vh', color: '#0f172a' }}>
       
-      {/* HERO */}
-      <div style={{ background: '#0f172a', padding: '60px 20px 80px', textAlign: 'center', color: 'white' }}>
-        <h1 style={{ fontSize: '2.5rem', fontWeight: '800', marginBottom: '15px' }}>AI Command Center</h1>
-        <p style={{ color: '#cbd5e1', marginBottom: '30px', fontSize: '1.1rem' }}>One search. Every AI model.</p>
+      {/* CSS FOR HOVER EFFECTS */}
+      <style jsx global>{`
+        .tool-card {
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .tool-card:hover {
+          transform: translateY(-8px);
+        }
+        .category-btn {
+          transition: all 0.2s ease;
+        }
+        .category-btn:hover {
+          transform: scale(1.05);
+        }
+      `}</style>
 
-        <div style={{ display: 'flex', maxWidth: '600px', margin: '0 auto', background: 'white', borderRadius: '50px', padding: '5px' }}>
+      {/* HERO SECTION */}
+      <div style={{ 
+        background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)', 
+        padding: '80px 20px 100px', 
+        textAlign: 'center', 
+        color: 'white',
+        borderBottomLeftRadius: '50px',
+        borderBottomRightRadius: '50px',
+        boxShadow: '0 20px 50px -12px rgba(0, 0, 0, 0.25)'
+      }}>
+        <h1 style={{ fontSize: '3.5rem', fontWeight: '800', marginBottom: '15px', letterSpacing: '-1.5px', background: 'linear-gradient(to right, #fff, #94a3b8)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+          AI Command Center
+        </h1>
+        <p style={{ color: '#cbd5e1', marginBottom: '40px', fontSize: '1.25rem', fontWeight: '400' }}>
+          One search. Every AI model. Infinite possibilities.
+        </p>
+
+        {/* Search Bar */}
+        <div style={{ display: 'flex', maxWidth: '650px', margin: '0 auto', background: 'rgba(255,255,255,0.15)', backdropFilter: 'blur(10px)', borderRadius: '60px', padding: '8px', border: '1px solid rgba(255,255,255,0.2)' }}>
           <input 
             type="text" 
-            placeholder="Type 'Gemini', 'DeepSeek', or 'Create Logo'..." 
+            placeholder="Try 'Gemini', 'Logo Design', or 'Fix Code'..." 
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
             onKeyDown={handleKeyDown}
-            style={{ flex: 1, padding: '15px 25px', borderRadius: '50px', border: 'none', fontSize: '1.1rem', outline: 'none', color: '#333' }}
+            style={{ 
+              flex: 1, padding: '15px 30px', borderRadius: '50px', border: 'none', 
+              fontSize: '1.1rem', outline: 'none', background: 'transparent', color: 'white', fontWeight: '500'
+            }}
           />
           <button 
             onClick={handleSearch}
-            style={{ background: '#3b82f6', color: 'white', border: 'none', padding: '12px 30px', borderRadius: '40px', fontSize: '1rem', fontWeight: 'bold', cursor: 'pointer' }}
+            style={{ 
+              background: '#fff', color: '#0f172a', border: 'none', padding: '12px 35px', 
+              borderRadius: '40px', fontSize: '1rem', fontWeight: '700', cursor: 'pointer',
+              boxShadow: '0 4px 15px rgba(0,0,0,0.1)' 
+            }}
           >
             Search
           </button>
         </div>
       </div>
 
-      {/* CATEGORIES */}
-      <div style={{ padding: '20px', borderBottom: '1px solid #e2e8f0', overflowX: 'auto', display: 'flex', gap: '10px', justifyContent: 'center', background: 'white', position: 'sticky', top: 0, zIndex: 50 }}>
+      {/* CATEGORY PILLS */}
+      <div style={{ marginTop: '-35px', padding: '0 20px', overflowX: 'auto', display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
         {categories.map(cat => (
           <button 
             key={cat.id}
+            className="category-btn"
             onClick={() => { setActiveCategory(cat.id); setQuery(''); setInputValue(''); setIsFallback(false); }}
             style={{
-              padding: '8px 18px', borderRadius: '25px', border: 'none', cursor: 'pointer',
-              background: activeCategory === cat.id ? getCategoryColor(cat.id) : '#f1f5f9',
+              padding: '10px 20px', borderRadius: '16px', border: 'none', cursor: 'pointer',
+              background: activeCategory === cat.id ? cat.color : 'white',
               color: activeCategory === cat.id ? 'white' : '#64748b', 
-              fontWeight: '700', whiteSpace: 'nowrap', transition: 'all 0.2s'
+              fontWeight: '600', fontSize: '0.95rem',
+              boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05)',
+              display: 'flex', alignItems: 'center', gap: '8px'
             }}
           >
-            {cat.label}
+            <span>{cat.icon}</span> {cat.id}
           </button>
         ))}
       </div>
 
       {/* RESULTS GRID */}
-      <div style={{ maxWidth: '1200px', margin: '40px auto', padding: '0 20px' }}>
-        <div style={{ marginBottom: '20px', color: '#64748b' }}>
+      <div style={{ maxWidth: '1280px', margin: '50px auto', padding: '0 25px' }}>
+        
+        {/* Status Text */}
+        <div style={{ marginBottom: '30px', color: '#64748b', fontWeight: '500' }}>
           {isFallback ? (
-            <div style={{ padding: '15px', background: '#fffbeb', color: '#b45309', borderRadius: '8px', border: '1px solid #fcd34d' }}>
-              <strong>No results for "{inputValue}".</strong> Check out these top models:
+            <div style={{ padding: '15px 20px', background: '#fffbeb', color: '#b45309', borderRadius: '12px', border: '1px solid #fcd34d', display: 'inline-block' }}>
+              ⚠️ No exact match found. Showing top recommendations:
             </div>
           ) : (
-            <p>Showing {finalTools.length} results</p>
+            <p>Showing {finalTools.length} powerful models</p>
           )}
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '20px' }}>
-          {finalTools.map((item) => (
-            <Link href={`/formula/${item.slug}`} key={item.slug} style={{ textDecoration: 'none', color: 'inherit' }}>
-              <div style={{ 
-                border: '1px solid #e2e8f0', borderRadius: '16px', padding: '25px', 
-                background: 'white', height: '100%', position: 'relative', overflow: 'hidden',
-                boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05)', transition: 'transform 0.2s'
-              }}>
-                
-                {/* BADGE for Multimodal */}
-                {item.is_multimodal && (
+        {/* THE CARDS */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))', gap: '25px' }}>
+          {finalTools.map((item) => {
+            const theme = getConfig(item.category);
+            
+            return (
+              <Link href={`/formula/${item.slug}`} key={item.slug} style={{ textDecoration: 'none', color: 'inherit' }}>
+                <div 
+                  className="tool-card"
+                  style={{ 
+                    borderRadius: '24px', 
+                    background: 'white', 
+                    height: '100%', 
+                    position: 'relative',
+                    border: '1px solid #f1f5f9',
+                    boxShadow: `0 10px 40px -20px rgba(0,0,0,0.1)`, 
+                    display: 'flex',
+                    flexDirection: 'column',
+                    overflow: 'hidden'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.boxShadow = `0 20px 40px -10px ${theme.color}40`; // Dynamic colored glow on hover
+                    e.currentTarget.style.borderColor = theme.color;
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.boxShadow = `0 10px 40px -20px rgba(0,0,0,0.1)`;
+                    e.currentTarget.style.borderColor = '#f1f5f9';
+                  }}
+                >
+                  
+                  {/* TOP BANNER (Dynamic Color) */}
                   <div style={{ 
-                    position: 'absolute', top: 0, right: 0, background: 'linear-gradient(45deg, #3b82f6, #8b5cf6)', 
-                    color: 'white', fontSize: '0.65rem', fontWeight: 'bold', padding: '5px 10px', 
-                    borderBottomLeftRadius: '10px', textTransform: 'uppercase'
-                  }}>
-                    All-in-One
-                  </div>
-                )}
+                    height: '6px', 
+                    width: '100%', 
+                    background: theme.color,
+                    opacity: 0.8
+                  }}></div>
 
-                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '15px' }}>
-                  <span style={{ 
-                    background: getCategoryColor(item.category) + '20', 
-                    color: getCategoryColor(item.category), 
-                    padding: '5px 12px', borderRadius: '20px', fontSize: '0.75rem', fontWeight: '800', textTransform: 'uppercase'
-                  }}>
-                    {item.category}
-                  </span>
+                  {/* CARD BODY */}
+                  <div style={{ padding: '25px', flex: 1, display: 'flex', flexDirection: 'column' }}>
+                    
+                    {/* Header: Icon + Category */}
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '15px' }}>
+                      <div style={{ 
+                        background: theme.bg, color: theme.color, 
+                        padding: '8px 12px', borderRadius: '12px', 
+                        fontSize: '0.8rem', fontWeight: '800', 
+                        textTransform: 'uppercase', letterSpacing: '0.5px',
+                        display: 'flex', alignItems: 'center', gap: '6px'
+                      }}>
+                        {theme.icon} {item.category}
+                      </div>
+
+                      {/* Multimodal Badge */}
+                      {item.is_multimodal && (
+                        <div style={{ 
+                          background: 'linear-gradient(135deg, #111, #444)', color: '#fff', 
+                          padding: '6px 10px', borderRadius: '8px', 
+                          fontSize: '0.7rem', fontWeight: '700',
+                          boxShadow: '0 4px 10px rgba(0,0,0,0.2)'
+                        }}>
+                          ⚡ PRO
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Title */}
+                    <h3 style={{ fontSize: '1.5rem', margin: '0 0 10px', color: '#1e293b', fontWeight: '800', letterSpacing: '-0.5px' }}>
+                      {item.title}
+                    </h3>
+
+                    {/* Problem/Desc */}
+                    <p style={{ color: '#64748b', fontSize: '1rem', lineHeight: '1.6', flex: 1 }}>
+                      {item.problem}
+                    </p>
+
+                    {/* Footer / Action Button */}
+                    <div style={{ marginTop: '25px', paddingTop: '20px', borderTop: '1px solid #f1f5f9' }}>
+                      <div style={{ 
+                        background: theme.bg,
+                        color: theme.color,
+                        padding: '12px',
+                        borderRadius: '12px',
+                        textAlign: 'center',
+                        fontWeight: '700',
+                        fontSize: '0.95rem',
+                        transition: 'filter 0.2s'
+                      }}>
+                        Use {item.model_name} →
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                
-                <h3 style={{ fontSize: '1.4rem', margin: '0 0 10px', color: '#0f172a', fontWeight: '800' }}>{item.title}</h3>
-                <p style={{ color: '#64748b', fontSize: '0.95rem', lineHeight: '1.5', marginBottom: '20px' }}>{item.problem}</p>
-                
-                <div style={{ 
-                  borderTop: '1px solid #f1f5f9', paddingTop: '15px', marginTop: 'auto',
-                  fontSize: '0.9rem', fontWeight: '700', color: getCategoryColor(item.category),
-                  display: 'flex', alignItems: 'center', gap: '6px'
-                }}>
-                  Use {item.model_name} →
-                </div>
-              </div>
-            </Link>
-          ))}
+              </Link>
+            );
+          })}
         </div>
       </div>
     </div>
