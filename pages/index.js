@@ -4,6 +4,7 @@ import { useState } from 'react';
 
 // --- DATA LOADING ---
 export async function getStaticProps() {
+  // Only load the tools/prompts, sidebar data is removed
   const toolsPath = path.join(process.cwd(), 'data', 'prompts.json');
   const toolsData = fs.readFileSync(toolsPath);
   const tools = JSON.parse(toolsData);
@@ -71,11 +72,12 @@ export default function Home({ tools }) {
   }).sort((a, b) => (b.is_multimodal === true) - (a.is_multimodal === true));
 
   return (
-    <div style={{ fontFamily: '"Inter", sans-serif', background: '#f8fafc', minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+    <div style={{ fontFamily: '"Inter", sans-serif', background: '#f8fafc', minHeight: '100vh', display: 'flex', justifyContent: 'center' }}>
       
       {/* --- CSS STYLES --- */}
       <style jsx global>{`
         * { box-sizing: border-box; }
+        body { margin: 0; padding: 0; }
         ::-webkit-scrollbar { width: 0px; background: transparent; }
         
         .container {
@@ -95,7 +97,10 @@ export default function Home({ tools }) {
         
         {/* HERO SECTION */}
         <div style={{ maxWidth: '800px', margin: '0 auto 50px', textAlign: 'center' }}>
-          <h1 style={{ fontSize: '3rem', fontWeight: '800', color: '#0f172a', marginBottom: '20px', letterSpacing: '-1.5px', lineHeight: '1.1' }}>
+          
+          {/* LOGO / TITLE */}
+          <div style={{ marginBottom: '10px', fontSize: '3rem' }}>🤖</div>
+          <h1 style={{ fontSize: '3rem', fontWeight: '800', color: '#0f172a', marginBottom: '30px', letterSpacing: '-1.5px', lineHeight: '1.1' }}>
             Find the Perfect Model
           </h1>
           
@@ -105,7 +110,7 @@ export default function Home({ tools }) {
             <div style={{ display: 'flex', width: '100%', background: 'white', padding: '8px', borderRadius: '50px', boxShadow: '0 10px 40px rgba(0,0,0,0.08)', border: '1px solid #e2e8f0' }}>
               <input 
                 type="text" 
-                placeholder="Search 200+ models..." 
+                placeholder="Search 200+ models (e.g. 'Coding', 'Video')..." 
                 value={mainQuery} 
                 onChange={(e) => setMainQuery(e.target.value)} 
                 style={{ flex: 1, padding: '12px 25px', borderRadius: '50px', border: 'none', outline: 'none', fontSize: '1.1rem', minWidth: '0' }} 
@@ -239,3 +244,4 @@ export default function Home({ tools }) {
     </div>
   );
 }
+
