@@ -30,7 +30,7 @@ export default function Home({ tools, sidebarData }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [openCategories, setOpenCategories] = useState({});
   const [expandedPrompt, setExpandedPrompt] = useState(null);
-  const [showOptimizer, setShowOptimizer] = useState(false); // Modal State
+  const [showOptimizer, setShowOptimizer] = useState(false); // Toggle for Widget
   
   // Optimizer State
   const [optInput, setOptInput] = useState('');
@@ -149,6 +149,13 @@ export default function Home({ tools, sidebarData }) {
         }
 
         .tool-card:hover { transform: translateY(-3px); box-shadow: 0 10px 20px -5px rgba(0,0,0,0.1); }
+
+        /* Animation for Widget */
+        .widget-enter { animation: slideDown 0.3s ease-out; }
+        @keyframes slideDown {
+          from { opacity: 0; transform: translateY(-10px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
       `}</style>
 
       {/* --- MOBILE HEADER --- */}
@@ -200,77 +207,80 @@ export default function Home({ tools, sidebarData }) {
         </div>
       </aside>
 
-      {/* --- MODAL: GPT-5 OPTIMIZER --- */}
-      {showOptimizer && (
-        <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', background: 'rgba(0,0,0,0.7)', zIndex: 200, display: 'flex', alignItems: 'center', justifyContent: 'center', backdropFilter: 'blur(5px)', padding: '20px' }}>
-          <div style={{ background: '#1e293b', width: '100%', maxWidth: '500px', borderRadius: '20px', padding: '25px', boxShadow: '0 20px 50px rgba(0,0,0,0.5)', color: 'white', border: '1px solid #334155' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px' }}>
-              <h2 style={{ margin: 0, fontSize: '1.2rem', display: 'flex', alignItems: 'center', gap: '8px' }}>✨ Prompt Optimizer</h2>
-              <button onClick={() => setShowOptimizer(false)} style={{ background: 'transparent', border: 'none', color: '#94a3b8', cursor: 'pointer', fontSize: '1.2rem' }}>✕</button>
-            </div>
-            
-            {!optOutput ? (
-              <>
-                <textarea 
-                  placeholder="Write here... (e.g. 'Build a python script')" 
-                  value={optInput}
-                  onChange={(e) => setOptInput(e.target.value)}
-                  style={{ width: '100%', height: '100px', padding: '15px', borderRadius: '10px', border: 'none', background: '#0f172a', color: 'white', fontSize: '1rem', marginBottom: '20px', fontFamily: 'inherit', resize: 'none' }}
-                />
-                
-                <div style={{ display: 'flex', gap: '10px', marginBottom: '20px' }}>
-                  <button style={{ flex: 1, padding: '10px', borderRadius: '8px', border: '1px solid #3b82f6', background: '#3b82f6', color: 'white', fontSize: '0.8rem', fontWeight: 'bold', cursor: 'default' }}>
-                    High Effort (Enabled)
-                  </button>
-                </div>
-
-                <button onClick={handleOptimize} style={{ width: '100%', padding: '15px', background: 'white', border: 'none', borderRadius: '10px', color: '#0f172a', fontWeight: 'bold', cursor: 'pointer', fontSize: '1rem' }}>
-                  {isOptimizing ? 'Optimizing...' : 'Generate Prompt'}
-                </button>
-              </>
-            ) : (
-              <div>
-                <div style={{ background: '#0f172a', padding: '15px', borderRadius: '10px', marginBottom: '20px', maxHeight: '200px', overflowY: 'auto', fontSize: '0.9rem', lineHeight: '1.6', border: '1px solid #334155' }}>
-                  {optOutput}
-                </div>
-                <div style={{ display: 'flex', gap: '10px' }}>
-                  <button onClick={() => copyToClipboard(optOutput)} style={{ flex: 1, padding: '12px', background: '#10b981', border: 'none', borderRadius: '8px', color: 'white', fontWeight: 'bold', cursor: 'pointer' }}>Copy</button>
-                  <button onClick={() => { setOptOutput(''); setOptInput(''); }} style={{ flex: 1, padding: '12px', background: '#334155', border: 'none', borderRadius: '8px', color: 'white', fontWeight: 'bold', cursor: 'pointer' }}>Reset</button>
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
-      )}
-
       {/* --- MAIN CONTENT --- */}
       <main className="main-content" style={{ flex: 1, padding: '40px', transition: 'margin 0.3s' }}>
         
-        {/* HERO SEARCH */}
+        {/* HERO SECTION */}
         <div style={{ maxWidth: '900px', margin: '20px auto 40px', textAlign: 'center' }}>
           <h1 style={{ fontSize: '2.5rem', fontWeight: '800', color: '#0f172a', marginBottom: '15px', letterSpacing: '-1px' }}>
             Find the Perfect Model
           </h1>
           
-          <div style={{ display: 'flex', gap: '10px', flexDirection: 'column', alignItems: 'center' }}>
-            {/* Search Bar */}
+          <div style={{ display: 'flex', gap: '15px', flexDirection: 'column', alignItems: 'center' }}>
+            
+            {/* 1. Main Search Bar */}
             <div style={{ display: 'flex', width: '100%', background: 'white', padding: '6px', borderRadius: '50px', boxShadow: '0 10px 30px rgba(0,0,0,0.08)', border: '1px solid #e2e8f0' }}>
               <input type="text" placeholder="Search 200+ models..." value={mainQuery} onChange={(e) => setMainQuery(e.target.value)} style={{ flex: 1, padding: '12px 20px', borderRadius: '50px', border: 'none', outline: 'none', fontSize: '1rem', minWidth: '0' }} />
               <button style={{ background: '#0f172a', color: 'white', border: 'none', padding: '12px 30px', borderRadius: '40px', fontWeight: 'bold', fontSize: '0.9rem', cursor: 'pointer' }}>Search</button>
             </div>
             
-            {/* OPTIMIZER BUTTON (INTEGRATED HERE) */}
+            {/* 2. Prompt Optimizer Button */}
             <button 
-              onClick={() => setShowOptimizer(true)}
+              onClick={() => setShowOptimizer(!showOptimizer)}
               style={{ 
-                marginTop: '10px', padding: '10px 25px', background: 'linear-gradient(to right, #2563eb, #9333ea)', 
+                padding: '10px 25px', background: showOptimizer ? '#1e293b' : 'linear-gradient(to right, #2563eb, #9333ea)', 
                 color: 'white', border: 'none', borderRadius: '30px', fontWeight: 'bold', 
                 fontSize: '0.9rem', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px',
-                boxShadow: '0 4px 15px rgba(37, 99, 235, 0.3)'
+                boxShadow: '0 4px 15px rgba(37, 99, 235, 0.3)', transition: 'all 0.2s'
               }}
             >
-              <span>✨</span> Prompt Optimizer
+              <span>{showOptimizer ? '✕ Close' : '✨ Prompt Optimizer'}</span>
             </button>
+
+            {/* 3. Expandable Optimizer Widget */}
+            {showOptimizer && (
+              <div className="widget-enter" style={{ width: '100%', maxWidth: '600px', background: '#1e293b', borderRadius: '16px', padding: '20px', color: 'white', boxShadow: '0 20px 40px rgba(0,0,0,0.2)', marginTop: '10px', textAlign: 'left', border: '1px solid #334155' }}>
+                
+                {!optOutput ? (
+                  <>
+                    <label style={{ fontSize: '0.8rem', color: '#94a3b8', fontWeight: 'bold', marginBottom: '8px', display: 'block' }}>WHAT DO YOU WANT TO CREATE?</label>
+                    <textarea 
+                      placeholder="Write here..." 
+                      value={optInput}
+                      onChange={(e) => setOptInput(e.target.value)}
+                      style={{ 
+                        width: '100%', height: '80px', padding: '12px', borderRadius: '8px', 
+                        border: '1px solid #334155', background: '#0f172a', color: 'white', 
+                        fontSize: '0.9rem', marginBottom: '15px', fontFamily: 'inherit', resize: 'none'
+                      }}
+                    />
+                    
+                    {/* "High Effort" logic is active, but button is HIDDEN as requested */}
+                    
+                    <button 
+                      onClick={handleOptimize} 
+                      style={{ 
+                        width: '100%', padding: '12px', background: 'white', border: 'none', 
+                        borderRadius: '8px', color: '#0f172a', fontWeight: '800', cursor: 'pointer', fontSize: '0.9rem' 
+                      }}
+                    >
+                      {isOptimizing ? 'Optimizing...' : 'Generate Pro Prompt'}
+                    </button>
+                  </>
+                ) : (
+                  <div>
+                    <div style={{ background: '#0f172a', padding: '15px', borderRadius: '10px', marginBottom: '15px', maxHeight: '200px', overflowY: 'auto', fontSize: '0.85rem', lineHeight: '1.6', border: '1px solid #334155', whiteSpace: 'pre-wrap' }}>
+                      {optOutput}
+                    </div>
+                    <div style={{ display: 'flex', gap: '10px' }}>
+                      <button onClick={() => copyToClipboard(optOutput)} style={{ flex: 1, padding: '10px', background: '#10b981', border: 'none', borderRadius: '6px', color: 'white', fontWeight: 'bold', cursor: 'pointer', fontSize: '0.85rem' }}>Copy</button>
+                      <button onClick={() => { setOptOutput(''); setOptInput(''); }} style={{ flex: 1, padding: '10px', background: '#334155', border: 'none', borderRadius: '6px', color: 'white', fontWeight: 'bold', cursor: 'pointer', fontSize: '0.85rem' }}>Reset</button>
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+
           </div>
         </div>
 
