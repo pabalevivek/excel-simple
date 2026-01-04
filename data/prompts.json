@@ -1,0 +1,50 @@
+[
+  {
+    "slug": "excel-expert-persona",
+    "category": "Excel",
+    "title": "Act as an Excel Expert",
+    "prompt": "You are an expert in Excel. I will give you a problem, and you will provide the most efficient formula to solve it. My first problem is: [INSERT PROBLEM HERE]",
+    "model_name": "ChatGPT",
+    "model_link": "https://chat.openai.com"
+  },
+  {
+    "slug": "realistic-portrait",
+    "category": "Image Gen",
+    "title": "Ultra-Realistic Portrait",
+    "prompt": "Cinematic shot, 35mm lens, f/1.8, highly detailed portrait of a cyberpunk street vendor, neon rain, soft lighting, 8k resolution --v 6.0",
+    "model_name": "Midjourney",
+    "model_link": "https://discord.com/invite/midjourney"
+  },
+  {
+    "slug": "seo-blog-writer",
+    "category": "Writing",
+    "title": "SEO Blog Post Writer",
+    "prompt": "Write a 1,000-word SEO-optimized blog post about [TOPIC]. Use H2 headers, a catchy title, and bullet points. Tone: Professional.",
+    "model_name": "Claude",
+    "model_link": "https://claude.ai"
+  },
+  {
+    "slug": "python-debugger",
+    "category": "Coding",
+    "title": "Python Bug Fixer",
+    "prompt": "I will provide Python code that has an error. Analyze the logic, find the bug, and provide the fixed code with comments.",
+    "model_name": "ChatGPT",
+    "model_link": "https://chat.openai.com"
+  },
+  {
+    "slug": "logo-designer",
+    "category": "Image Gen",
+    "title": "Minimalist Vector Logo",
+    "prompt": "Flat vector logo design of a [ANIMAL], minimalist style, white background, golden ratio, simple geometric shapes.",
+    "model_name": "Bing Images",
+    "model_link": "https://www.bing.com/images/create"
+  },
+  {
+    "slug": "youtube-hook",
+    "category": "Writing",
+    "title": "Viral YouTube Hook",
+    "prompt": "Write 3 variations of a 15-second YouTube video intro hook about [TOPIC]. Create curiosity immediately.",
+    "model_name": "ChatGPT",
+    "model_link": "https://chat.openai.com"
+  }
+]
