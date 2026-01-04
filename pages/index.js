@@ -1,6 +1,5 @@
 import fs from 'fs';
 import path from 'path';
-import Link from 'next/link';
 import { useState } from 'react';
 
 // --- DATA LOADING ---
@@ -30,7 +29,7 @@ export default function Home({ tools, sidebarData }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [openCategories, setOpenCategories] = useState({});
   const [expandedPrompt, setExpandedPrompt] = useState(null);
-  const [showOptimizer, setShowOptimizer] = useState(true); // Default OPEN for visibility
+  const [showOptimizer, setShowOptimizer] = useState(false); // Toggle for Widget
   
   // Optimizer State
   const [optInput, setOptInput] = useState('');
@@ -70,14 +69,13 @@ export default function Home({ tools, sidebarData }) {
     alert("Copied to clipboard!");
   };
 
-  // --- OPTIMIZER LOGIC (Hidden High Effort) ---
+  // --- OPTIMIZER LOGIC ---
   const handleOptimize = () => {
     if (!optInput) return;
     setIsOptimizing(true);
     setTimeout(() => {
       let refinedPrompt = `You are an expert AI assistant. `;
       refinedPrompt += `Your task is to: ${optInput}.\n\n`;
-      // High Effort Logic Applied silently
       refinedPrompt += `[System: reasoning_effort = xhigh]\nPlan step-by-step. Analyze edge cases before answering.\n`;
       refinedPrompt += `\nOutput Format:\n1. Summary\n2. Detailed Execution\n3. Code/Examples`;
       
@@ -220,10 +218,9 @@ export default function Home({ tools, sidebarData }) {
               <button style={{ background: '#0f172a', color: 'white', border: 'none', padding: '12px 35px', borderRadius: '40px', fontWeight: 'bold', fontSize: '1rem', cursor: 'pointer' }}>Search</button>
             </div>
             
-            {/* 2. PROMPT OPTIMIZER SECTION (FEATURE CARD) */}
+            {/* 2. PROMPT OPTIMIZER SECTION */}
             <div style={{ width: '100%', maxWidth: '800px', margin: '0 auto' }}>
               
-              {/* TRIGGER HEADER */}
               <button 
                 onClick={() => setShowOptimizer(!showOptimizer)}
                 style={{ 
@@ -232,7 +229,7 @@ export default function Home({ tools, sidebarData }) {
                   background: 'linear-gradient(135deg, #1e293b 0%, #0f172a 100%)', 
                   color: 'white', 
                   border: '1px solid #334155', 
-                  borderRadius: showOptimizer ? '20px 20px 0 0' : '20px', // Round top only if open
+                  borderRadius: showOptimizer ? '20px 20px 0 0' : '20px', 
                   cursor: 'pointer', 
                   display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '15px',
                   boxShadow: '0 10px 30px rgba(0,0,0,0.15)',
@@ -256,7 +253,6 @@ export default function Home({ tools, sidebarData }) {
                 </span>
               </button>
 
-              {/* EXPANDABLE CONTENT */}
               {showOptimizer && (
                 <div style={{ 
                   background: '#1e293b', 
@@ -323,11 +319,12 @@ export default function Home({ tools, sidebarData }) {
         </div>
 
         {/* GRID */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '25px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '20px' }}>
           {filteredTools.map((item) => {
             const theme = getConfig(item.category);
             return (
-              <Link href={`/formula/${item.slug}`} key={item.slug} style={{ textDecoration: 'none' }}>
+              /* REPLACED LINK WITH DIRECT ANCHOR TAG */
+              <a href={item.model_link} target="_blank" rel="noopener noreferrer" key={item.slug} style={{ textDecoration: 'none' }}>
                 <div className="tool-card" style={{ background: 'white', borderRadius: '20px', padding: '25px', border: `1px solid ${theme.solid}15`, height: '100%', display: 'flex', flexDirection: 'column', transition: 'all 0.2s' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '15px' }}>
                     <span style={{ fontSize: '0.75rem', fontWeight: '800', color: theme.solid, background: theme.soft, padding: '5px 12px', borderRadius: '20px', textTransform: 'uppercase' }}>{theme.icon} {item.category}</span>
@@ -337,7 +334,7 @@ export default function Home({ tools, sidebarData }) {
                   <p style={{ color: '#64748b', fontSize: '0.95rem', marginBottom: '25px', flex: 1, lineHeight: '1.6' }}>{item.problem}</p>
                   <div style={{ background: theme.solid, color: 'white', textAlign: 'center', padding: '12px', borderRadius: '12px', fontWeight: '700', fontSize: '0.95rem' }}>Use {item.model_name} →</div>
                 </div>
-              </Link>
+              </a>
             );
           })}
         </div>
@@ -345,3 +342,4 @@ export default function Home({ tools, sidebarData }) {
     </div>
   );
 }
+
