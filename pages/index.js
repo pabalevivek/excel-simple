@@ -16,29 +16,41 @@ export default function Home({ tools }) {
   const [activeCategory, setActiveCategory] = useState('All');
   const [isFallback, setIsFallback] = useState(false);
 
-  // --- 1. VIBRANT COLOR PALETTE ---
-  // We use a specific 'solid' color for buttons and a 'soft' color for backgrounds
+  // --- 1. CONFIGURATION ---
   const categoryConfig = {
     'All':      { solid: '#334155', soft: '#f8fafc', icon: '🌍' },
-    'Image':    { solid: '#9333ea', soft: '#f3e8ff', icon: '🎨' }, // Vivid Purple
-    'Video':    { solid: '#dc2626', soft: '#fef2f2', icon: '🎥' }, // Vivid Red
-    'Coding':   { solid: '#2563eb', soft: '#eff6ff', icon: '💻' }, // Vivid Blue
-    'Writing':  { solid: '#d97706', soft: '#fffbeb', icon: '✍️' }, // Vivid Amber
-    'Research': { solid: '#059669', soft: '#ecfdf5', icon: '🔬' }, // Vivid Emerald
-    'Business': { solid: '#4f46e5', soft: '#eef2ff', icon: '💼' }, // Vivid Indigo
-    'Music':    { solid: '#db2777', soft: '#fdf2f8', icon: '🎵' }, // Vivid Pink
-    'Voice':    { solid: '#ea580c', soft: '#fff7ed', icon: '🎙️' }, // Vivid Orange
-    'Reasoning':{ solid: '#7c3aed', soft: '#f5f3ff', icon: '🧠' }, // Vivid Violet
-    '3D':       { solid: '#0891b2', soft: '#ecfeff', icon: '🧊' }, // Vivid Cyan
-    'Life':     { solid: '#0d9488', soft: '#f0fdfa', icon: '🌱' }  // Vivid Teal
+    'Image':    { solid: '#9333ea', soft: '#f3e8ff', icon: '🎨' },
+    'Video':    { solid: '#dc2626', soft: '#fef2f2', icon: '🎥' },
+    'Coding':   { solid: '#2563eb', soft: '#eff6ff', icon: '💻' },
+    'Writing':  { solid: '#d97706', soft: '#fffbeb', icon: '✍️' },
+    'Research': { solid: '#059669', soft: '#ecfdf5', icon: '🔬' },
+    'Business': { solid: '#4f46e5', soft: '#eef2ff', icon: '💼' },
+    'Music':    { solid: '#db2777', soft: '#fdf2f8', icon: '🎵' },
+    'Voice':    { solid: '#ea580c', soft: '#fff7ed', icon: '🎙️' },
+    'Reasoning':{ solid: '#7c3aed', soft: '#f5f3ff', icon: '🧠' },
+    '3D':       { solid: '#0891b2', soft: '#ecfeff', icon: '🧊' },
+    'Life':     { solid: '#0d9488', soft: '#f0fdfa', icon: '🌱' },
+    'Chat':     { solid: '#be185d', soft: '#fce7f3', icon: '💬' }
   };
 
   const getConfig = (cat) => categoryConfig[cat] || categoryConfig['All'];
   const categories = Object.keys(categoryConfig).filter(k => k !== 'Life').map(key => ({ id: key, ...categoryConfig[key] }));
 
-  // --- 2. SEARCH HANDLER ---
+  // --- 2. SMART SEARCH LOGIC ---
+  const stopWords = ['create', 'make', 'generate', 'build', 'how', 'to', 'i', 'want', 'need', 'a', 'an', 'the', 'for', 'with', 'using', 'can', 'you'];
+
   const handleSearch = () => {
-    setQuery(inputValue.toLowerCase().trim());
+    // 1. Clean the input
+    let cleanInput = inputValue.toLowerCase().trim();
+    
+    // 2. Remove "Stop Words" (e.g., "create resume" -> "resume")
+    // This prevents matching "Create Music" when user wants "Resume"
+    let importantWords = cleanInput.split(' ').filter(word => !stopWords.includes(word));
+    
+    // If the user ONLY typed stop words (e.g. "create"), keep them, otherwise use the filtered list
+    let finalQuery = importantWords.length > 0 ? importantWords.join(' ') : cleanInput;
+
+    setQuery(finalQuery);
     setActiveCategory('All');
   };
 
@@ -46,14 +58,21 @@ export default function Home({ tools }) {
     if (e.key === 'Enter') handleSearch();
   };
 
-  // --- 3. FILTER LOGIC ---
+  // --- 3. FILTERING ---
   let displayTools = tools.filter(tool => {
+    // Category Filter
     if (activeCategory !== 'All' && tool.category !== activeCategory) return false;
     
+    // Search Filter
     if (query) {
       const toolText = `${tool.title} ${tool.model_name} ${tool.problem} ${tool.solution} ${tool.category}`.toLowerCase();
+      
+      // A. Exact Phrase Match (High Priority)
       if (toolText.includes(query)) return true;
-      const searchTerms = query.split(' ').filter(t => t.trim().length > 1);
+
+      // B. Keyword Match (Filtered)
+      const searchTerms = query.split(' ');
+      // Check if ANY of the important keywords exist in the tool
       return searchTerms.some(term => toolText.includes(term));
     }
     return true;
@@ -62,10 +81,15 @@ export default function Home({ tools }) {
   // --- 4. SORTING ---
   if (query) {
     displayTools.sort((a, b) => {
-      const aMatch = a.title.toLowerCase().includes(query);
-      const bMatch = b.title.toLowerCase().includes(query);
-      if (aMatch && !bMatch) return -1;
-      if (!aMatch && bMatch) return 1;
+      // Prioritize Exact Matches in Title
+      const aTitle = a.title.toLowerCase();
+      const bTitle = b.title.toLowerCase();
+      const aHasQuery = aTitle.includes(query);
+      const bHasQuery = bTitle.includes(query);
+      
+      if (aHasQuery && !bHasQuery) return -1;
+      if (!aHasQuery && bHasQuery) return 1;
+      
       return (b.is_multimodal === true) - (a.is_multimodal === true);
     });
   } else {
@@ -82,14 +106,13 @@ export default function Home({ tools }) {
   return (
     <div style={{ fontFamily: '"Inter", sans-serif', background: '#f8fafc', minHeight: '100vh', color: '#0f172a' }}>
       
-      {/* GLOBAL STYLES FOR CARD HOVER */}
       <style jsx global>{`
         .tool-card { transition: transform 0.2s ease, box-shadow 0.2s ease; }
         .tool-card:hover { transform: translateY(-5px); }
         .search-input::placeholder { color: #94a3b8; }
       `}</style>
 
-      {/* HERO SECTION - DARK MODERN */}
+      {/* HERO */}
       <div style={{ 
         background: '#0f172a', 
         backgroundImage: 'radial-gradient(circle at 50% 0%, #1e293b 0%, #0f172a 70%)',
@@ -105,12 +128,11 @@ export default function Home({ tools }) {
           Find the perfect AI model for any task. Instantly.
         </p>
 
-        {/* SEARCH BAR */}
         <div style={{ display: 'flex', maxWidth: '600px', margin: '0 auto', background: 'white', borderRadius: '50px', padding: '6px', boxShadow: '0 0 0 4px rgba(255,255,255,0.1)' }}>
           <input 
             className="search-input"
             type="text" 
-            placeholder="Type 'Grok', 'Coding', or 'Logo'..." 
+            placeholder="Type 'Resume', 'Logo', or 'Code'..." 
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
             onKeyDown={handleKeyDown}
@@ -126,8 +148,6 @@ export default function Home({ tools }) {
               borderRadius: '40px', fontSize: '1rem', fontWeight: '700', cursor: 'pointer',
               transition: 'background 0.2s'
             }}
-            onMouseOver={(e) => e.target.style.background = '#1d4ed8'}
-            onMouseOut={(e) => e.target.style.background = '#2563eb'}
           >
             Search
           </button>
@@ -158,7 +178,6 @@ export default function Home({ tools }) {
       {/* RESULTS GRID */}
       <div style={{ maxWidth: '1280px', margin: '40px auto', padding: '0 20px' }}>
         
-        {/* Status */}
         <div style={{ marginBottom: '20px', color: '#64748b', fontWeight: '500' }}>
           {isFallback ? (
             <div style={{ padding: '15px', background: '#fffbeb', color: '#b45309', borderRadius: '10px', border: '1px solid #fcd34d' }}>
@@ -179,20 +198,15 @@ export default function Home({ tools }) {
                   className="tool-card"
                   style={{ 
                     borderRadius: '20px', 
-                    // DYNAMIC BACKGROUND: Subtle gradient matching the category
                     background: `linear-gradient(to bottom right, ${theme.soft}, #ffffff)`,
                     height: '100%', 
                     position: 'relative',
-                    border: `1px solid ${theme.solid}20`, // Colored subtle border
+                    border: `1px solid ${theme.solid}20`,
                     display: 'flex', flexDirection: 'column',
                     boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05)'
                   }}
                 >
-                  
-                  {/* CARD BODY */}
                   <div style={{ padding: '25px', flex: 1, display: 'flex', flexDirection: 'column' }}>
-                    
-                    {/* Header */}
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '15px' }}>
                       <div style={{ 
                         background: 'white', color: theme.solid, 
@@ -203,8 +217,6 @@ export default function Home({ tools }) {
                       }}>
                         {theme.icon} {item.category}
                       </div>
-
-                      {/* Pro Badge */}
                       {item.is_multimodal && (
                         <div style={{ 
                           background: '#0f172a', color: '#fff', 
@@ -216,17 +228,14 @@ export default function Home({ tools }) {
                       )}
                     </div>
 
-                    {/* Title */}
                     <h3 style={{ fontSize: '1.4rem', margin: '0 0 10px', color: '#1e293b', fontWeight: '800', letterSpacing: '-0.5px' }}>
                       {item.title}
                     </h3>
 
-                    {/* Desc */}
                     <p style={{ color: '#475569', fontSize: '0.95rem', lineHeight: '1.6', flex: 1, marginBottom: '25px' }}>
                       {item.problem}
                     </p>
 
-                    {/* ACTION BUTTON (Solid Color) */}
                     <div style={{ 
                       background: theme.solid, 
                       color: 'white',
@@ -236,7 +245,7 @@ export default function Home({ tools }) {
                       fontWeight: '700',
                       fontSize: '0.95rem',
                       display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '8px',
-                      boxShadow: `0 4px 12px ${theme.solid}40` // Colored shadow
+                      boxShadow: `0 4px 12px ${theme.solid}40`
                     }}>
                       Use {item.model_name} <span style={{ fontSize: '1.1rem' }}>→</span>
                     </div>
