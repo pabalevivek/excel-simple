@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import Link from 'next/link';
-import { useState } from 'react'; // Removed unused 'useEffect'
+import { useState } from 'react';
 
 // --- DATA LOADING ---
 export async function getStaticProps() {
@@ -30,11 +30,9 @@ export default function Home({ tools, sidebarData }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [openCategories, setOpenCategories] = useState({});
   const [expandedPrompt, setExpandedPrompt] = useState(null);
-  const [showOptimizer, setShowOptimizer] = useState(false);
   
   // Optimizer State
   const [optInput, setOptInput] = useState('');
-  const [optEffort, setOptEffort] = useState('Medium'); 
   const [optOutput, setOptOutput] = useState('');
   const [isOptimizing, setIsOptimizing] = useState(false);
 
@@ -71,21 +69,17 @@ export default function Home({ tools, sidebarData }) {
     alert("Copied to clipboard!");
   };
 
-  // --- OPTIMIZER LOGIC ---
+  // --- OPTIMIZER LOGIC (High Effort Only) ---
   const handleOptimize = () => {
     if (!optInput) return;
     setIsOptimizing(true);
     setTimeout(() => {
       let refinedPrompt = `You are an expert AI assistant. `;
       refinedPrompt += `Your task is to: ${optInput}.\n\n`;
-      if (optEffort === 'High') {
-        refinedPrompt += `[System: reasoning_effort = xhigh]\nPlan step-by-step.\n`;
-      } else if (optEffort === 'Low') {
-        refinedPrompt += `[System: reasoning_effort = low]\nBe concise.\n`;
-      } else {
-        refinedPrompt += `[System: reasoning_effort = medium]\n`;
-      }
-      refinedPrompt += `\nOutput Format:\n1. Summary\n2. Execution\n3. Code/Examples`;
+      // Locked to High Effort per request
+      refinedPrompt += `[System: reasoning_effort = xhigh]\nPlan step-by-step. Analyze edge cases before answering.\n`;
+      refinedPrompt += `\nOutput Format:\n1. Summary\n2. Detailed Execution\n3. Code/Examples`;
+      
       setOptOutput(refinedPrompt);
       setIsOptimizing(false);
     }, 800);
@@ -120,40 +114,43 @@ export default function Home({ tools, sidebarData }) {
           transition: transform 0.3s ease;
         }
 
-        /* MOBILE OVERRIDES */
         .mobile-only { display: none; }
 
         @media (max-width: 768px) {
-          .sidebar-container { transform: translateX(-100%); width: 80%; max-width: 300px; }
+          .sidebar-container { transform: translateX(-100%); width: 85%; max-width: 320px; }
           .sidebar-container.open { transform: translateX(0); }
           .main-content { margin-left: 0 !important; width: 100% !important; padding: 20px !important; }
           .mobile-header { display: flex !important; }
           .mobile-only { display: block; }
         }
 
-        /* DESKTOP DEFAULTS */
         @media (min-width: 769px) {
           .mobile-header { display: none !important; }
           .main-content { margin-left: 280px; width: calc(100% - 280px); }
         }
 
         .nav-item {
-          display: flex; align-items: center; padding: 12px 20px; cursor: pointer;
-          transition: background 0.2s; color: #94a3b8; font-size: 0.9rem;
+          display: flex; align-items: center; padding: 10px 20px; cursor: pointer;
+          transition: background 0.2s; color: #94a3b8; font-size: 0.85rem;
         }
         .nav-item:hover { background: #1e293b; color: white; }
         
         .group-header {
-          padding: 15px 20px; font-size: 0.8rem; color: #cbd5e1; 
+          padding: 12px 20px; font-size: 0.75rem; color: #cbd5e1; 
           font-weight: bold; text-transform: uppercase; letter-spacing: 0.5px;
           cursor: pointer; display: flex; justify-content: space-between;
-          border-bottom: 1px solid #1e293b;
+          border-bottom: 1px solid #1e293b; margin-top: 5px;
         }
         .group-header:hover { background: #1e293b; }
         
         .prompt-preview {
-          background: #1e293b; padding: 10px; margin: 0 20px 10px; 
-          border-radius: 8px; font-size: 0.85rem; color: #e2e8f0; border: 1px solid #334155;
+          background: #1e293b; padding: 12px; margin: 0 20px 10px; 
+          border-radius: 8px; font-size: 0.8rem; color: #e2e8f0; border: 1px solid #334155;
+        }
+
+        .optimizer-box {
+          margin: 15px; padding: 15px; background: #1e293b; 
+          border-radius: 12px; border: 1px solid #334155;
         }
 
         .tool-card:hover { transform: translateY(-3px); box-shadow: 0 10px 20px -5px rgba(0,0,0,0.1); }
@@ -174,48 +171,90 @@ export default function Home({ tools, sidebarData }) {
       <aside className={`sidebar-container ${isSidebarOpen ? 'open' : ''}`}>
         
         {/* LOGO AREA */}
-        <div style={{ padding: '25px 24px', borderBottom: '1px solid #1e293b', marginBottom: '10px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div style={{ padding: '20px 24px', borderBottom: '1px solid #1e293b', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
             <div style={{ fontSize: '1.5rem' }}>🤖</div>
             <div style={{ fontWeight: '800', fontSize: '1.1rem' }}>AI Center</div>
           </div>
-          {/* Close button for mobile */}
-          <button onClick={() => setIsSidebarOpen(false)} className="mobile-only" style={{ background: 'transparent', border: 'none', color: 'white', fontSize: '1.5rem', cursor: 'pointer' }}>✕</button>
+          <button onClick={() => setIsSidebarOpen(false)} className="mobile-only" style={{ background: 'transparent', border: 'none', color: 'white', fontSize: '1.2rem' }}>✕</button>
         </div>
 
-        {/* 1. OPTIMIZER BUTTON */}
-        <div className="nav-item" onClick={() => setShowOptimizer(true)} style={{ background: 'rgba(96, 165, 250, 0.1)', borderLeft: '3px solid #60a5fa', color: 'white', margin: '10px 0' }}>
-          <span style={{ marginRight: '10px' }}>✨</span>
-          <span style={{ fontWeight: 'bold' }}>GPT-5 Optimizer</span>
+        {/* 1. EMBEDDED OPTIMIZER WIDGET */}
+        <div className="optimizer-box">
+          <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '10px', color: '#60a5fa', fontWeight: 'bold', fontSize: '0.9rem' }}>
+            <span>✨</span> Prompt Optimizer
+          </div>
+          
+          {!optOutput ? (
+            <>
+              <textarea 
+                placeholder="Write here..." 
+                value={optInput}
+                onChange={(e) => setOptInput(e.target.value)}
+                style={{ 
+                  width: '100%', height: '70px', padding: '10px', borderRadius: '8px', 
+                  border: '1px solid #334155', background: '#0f172a', color: 'white', 
+                  fontSize: '0.85rem', marginBottom: '10px', fontFamily: 'inherit', resize: 'none'
+                }}
+              />
+              
+              {/* Only HIGH Setting */}
+              <div style={{ display: 'flex', gap: '10px', marginBottom: '10px' }}>
+                <button style={{ 
+                  flex: 1, padding: '6px', borderRadius: '6px', border: '1px solid #3b82f6', 
+                  background: '#3b82f6', color: 'white', fontSize: '0.75rem', fontWeight: 'bold', cursor: 'default'
+                }}>
+                  High Effort
+                </button>
+              </div>
+
+              <button 
+                onClick={handleOptimize}
+                style={{ 
+                  width: '100%', padding: '8px', background: 'white', border: 'none', 
+                  borderRadius: '6px', color: '#0f172a', fontWeight: 'bold', cursor: 'pointer', fontSize: '0.85rem' 
+                }}
+              >
+                {isOptimizing ? 'Thinking...' : 'Optimize'}
+              </button>
+            </>
+          ) : (
+            <div style={{ animation: 'fadeIn 0.3s' }}>
+              <div style={{ background: '#0f172a', padding: '10px', borderRadius: '8px', marginBottom: '10px', maxHeight: '150px', overflowY: 'auto', fontSize: '0.8rem', lineHeight: '1.4', border: '1px solid #334155' }}>
+                {optOutput}
+              </div>
+              <div style={{ display: 'flex', gap: '8px' }}>
+                <button onClick={() => copyToClipboard(optOutput)} style={{ flex: 1, padding: '6px', background: '#10b981', border: 'none', borderRadius: '4px', color: 'white', fontWeight: 'bold', cursor: 'pointer', fontSize: '0.8rem' }}>Copy</button>
+                <button onClick={() => { setOptOutput(''); setOptInput(''); }} style={{ flex: 1, padding: '6px', background: '#334155', border: 'none', borderRadius: '4px', color: 'white', fontWeight: 'bold', cursor: 'pointer', fontSize: '0.8rem' }}>Reset</button>
+              </div>
+            </div>
+          )}
         </div>
 
-        <div style={{ height: '1px', background: '#1e293b', margin: '10px 20px' }}></div>
+        <div style={{ height: '1px', background: '#1e293b', margin: '0 20px' }}></div>
 
         {/* 2. PROMPT LIBRARY (Collapsible) */}
         <div style={{ flex: 1 }}>
           {sidebarData && sidebarData.map((group, idx) => (
             <div key={idx}>
-              {/* Category Header */}
               <div className="group-header" onClick={() => toggleCategory(idx)}>
                 <span>{group.category}</span>
-                <span>{openCategories[idx] ? '−' : '+'}</span>
+                <span style={{ color: '#64748b' }}>{openCategories[idx] ? '−' : '+'}</span>
               </div>
               
-              {/* Items List */}
               {openCategories[idx] && group.items.map((item, i) => (
                 <div key={i}>
                   <div className="nav-item" onClick={() => item.type === 'gpt' ? window.open(item.link) : togglePrompt(item.label)}>
-                    <span style={{ marginRight: '10px' }}>{item.type === 'gpt' ? '🤖' : '📝'}</span>
+                    <span style={{ marginRight: '8px' }}>{item.type === 'gpt' ? '🤖' : '📝'}</span>
                     <span style={{ overflow: 'hidden', textOverflow: 'ellipsis' }}>{item.label}</span>
                   </div>
                   
-                  {/* Expanded Prompt */}
                   {item.type === 'prompt' && expandedPrompt === item.label && (
                     <div className="prompt-preview">
-                      <div style={{ marginBottom: '10px', lineHeight: '1.5' }}>{item.content}</div>
+                      <div style={{ marginBottom: '10px', lineHeight: '1.4', whiteSpace: 'pre-wrap' }}>{item.content}</div>
                       <button 
                         onClick={() => copyToClipboard(item.content)}
-                        style={{ width: '100%', padding: '8px', background: '#3b82f6', border: 'none', borderRadius: '4px', color: 'white', cursor: 'pointer', fontSize: '0.8rem', fontWeight: 'bold' }}
+                        style={{ width: '100%', padding: '6px', background: '#3b82f6', border: 'none', borderRadius: '4px', color: 'white', cursor: 'pointer', fontSize: '0.75rem', fontWeight: 'bold' }}
                       >
                         Copy Prompt
                       </button>
@@ -228,56 +267,12 @@ export default function Home({ tools, sidebarData }) {
         </div>
       </aside>
 
-      {/* --- MODAL: GPT-5 OPTIMIZER --- */}
-      {showOptimizer && (
-        <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', background: 'rgba(0,0,0,0.7)', zIndex: 200, display: 'flex', alignItems: 'center', justifyContent: 'center', backdropFilter: 'blur(5px)', padding: '20px' }}>
-          <div style={{ background: '#1e293b', width: '100%', maxWidth: '500px', borderRadius: '20px', padding: '25px', boxShadow: '0 20px 50px rgba(0,0,0,0.5)', color: 'white', border: '1px solid #334155' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px' }}>
-              <h2 style={{ margin: 0, fontSize: '1.2rem' }}>✨ GPT-5 Prompt Optimizer</h2>
-              <button onClick={() => setShowOptimizer(false)} style={{ background: 'transparent', border: 'none', color: '#94a3b8', cursor: 'pointer', fontSize: '1.2rem' }}>✕</button>
-            </div>
-            
-            {!optOutput ? (
-              <>
-                <textarea 
-                  placeholder="Task (e.g. 'Snake game in Python')..." 
-                  value={optInput}
-                  onChange={(e) => setOptInput(e.target.value)}
-                  style={{ width: '100%', height: '100px', padding: '15px', borderRadius: '10px', border: 'none', background: '#0f172a', color: 'white', fontSize: '1rem', marginBottom: '20px', fontFamily: 'inherit' }}
-                />
-                <div style={{ display: 'flex', gap: '10px', marginBottom: '20px' }}>
-                  {['Low', 'Medium', 'High'].map(level => (
-                    <button key={level} onClick={() => setOptEffort(level)}
-                      style={{ flex: 1, padding: '10px', borderRadius: '8px', border: optEffort === level ? '1px solid #3b82f6' : '1px solid #334155', background: optEffort === level ? '#3b82f6' : 'transparent', color: 'white', cursor: 'pointer' }}>
-                      {level}
-                    </button>
-                  ))}
-                </div>
-                <button onClick={handleOptimize} style={{ width: '100%', padding: '15px', background: 'linear-gradient(to right, #2563eb, #9333ea)', border: 'none', borderRadius: '10px', color: 'white', fontWeight: 'bold', cursor: 'pointer', fontSize: '1rem' }}>
-                  {isOptimizing ? 'Thinking...' : 'Optimize Now'}
-                </button>
-              </>
-            ) : (
-              <div>
-                <div style={{ background: '#0f172a', padding: '15px', borderRadius: '10px', marginBottom: '20px', maxHeight: '200px', overflowY: 'auto', fontSize: '0.9rem', lineHeight: '1.6' }}>
-                  {optOutput}
-                </div>
-                <div style={{ display: 'flex', gap: '10px' }}>
-                  <button onClick={() => copyToClipboard(optOutput)} style={{ flex: 1, padding: '12px', background: '#10b981', border: 'none', borderRadius: '8px', color: 'white', fontWeight: 'bold', cursor: 'pointer' }}>Copy</button>
-                  <button onClick={() => { setOptOutput(''); setOptInput(''); }} style={{ flex: 1, padding: '12px', background: '#334155', border: 'none', borderRadius: '8px', color: 'white', fontWeight: 'bold', cursor: 'pointer' }}>New</button>
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
-      )}
-
       {/* --- MAIN CONTENT --- */}
       <main className="main-content" style={{ flex: 1, padding: '40px', transition: 'margin 0.3s' }}>
         
-        {/* SEARCH & HEADER */}
+        {/* HERO SEARCH */}
         <div style={{ maxWidth: '900px', margin: '20px auto 40px', textAlign: 'center' }}>
-          <h1 style={{ fontSize: '2.5rem', fontWeight: '800', color: '#0f172a', marginBottom: '15px', letterSpacing: '-1px', lineHeight: '1.2' }}>
+          <h1 style={{ fontSize: '2.5rem', fontWeight: '800', color: '#0f172a', marginBottom: '15px', letterSpacing: '-1px' }}>
             Find the Perfect Model
           </h1>
           <div style={{ display: 'flex', background: 'white', padding: '6px', borderRadius: '50px', boxShadow: '0 10px 30px rgba(0,0,0,0.08)', border: '1px solid #e2e8f0' }}>
@@ -286,30 +281,30 @@ export default function Home({ tools, sidebarData }) {
           </div>
         </div>
 
-        {/* TABS */}
+        {/* CATEGORY TABS */}
         <div style={{ display: 'flex', gap: '10px', overflowX: 'auto', paddingBottom: '15px', marginBottom: '20px', justifyContent: 'flex-start', scrollbarWidth: 'none' }}>
           {categories.map(cat => (
             <button key={cat.id} onClick={() => setActiveCategory(cat.id)}
-              style={{ padding: '8px 16px', borderRadius: '25px', border: 'none', background: activeCategory === cat.id ? cat.solid : 'white', color: activeCategory === cat.id ? 'white' : '#64748b', fontWeight: '700', cursor: 'pointer', whiteSpace: 'nowrap', boxShadow: '0 2px 10px rgba(0,0,0,0.05)', transition: 'all 0.2s', fontSize: '0.9rem' }}>
+              style={{ padding: '8px 16px', borderRadius: '25px', border: 'none', background: activeCategory === cat.id ? cat.solid : 'white', color: activeCategory === cat.id ? 'white' : '#64748b', fontWeight: '700', cursor: 'pointer', whiteSpace: 'nowrap', boxShadow: '0 2px 10px rgba(0,0,0,0.05)', transition: 'all 0.2s', fontSize: '0.85rem' }}>
               <span style={{ marginRight: '6px' }}>{cat.icon}</span> {cat.id}
             </button>
           ))}
         </div>
 
-        {/* GRID */}
+        {/* RESULTS GRID */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '20px' }}>
           {filteredTools.map((item) => {
             const theme = getConfig(item.category);
             return (
               <Link href={`/formula/${item.slug}`} key={item.slug} style={{ textDecoration: 'none' }}>
-                <div className="tool-card" style={{ background: 'white', borderRadius: '20px', padding: '20px', border: `1px solid ${theme.solid}15`, height: '100%', display: 'flex', flexDirection: 'column', transition: 'all 0.2s' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '15px' }}>
+                <div className="tool-card" style={{ background: 'white', borderRadius: '16px', padding: '20px', border: `1px solid ${theme.solid}15`, height: '100%', display: 'flex', flexDirection: 'column', transition: 'all 0.2s' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '12px' }}>
                     <span style={{ fontSize: '0.7rem', fontWeight: '800', color: theme.solid, background: theme.soft, padding: '5px 10px', borderRadius: '20px', textTransform: 'uppercase' }}>{theme.icon} {item.category}</span>
-                    {item.is_multimodal && <span style={{ fontSize: '0.7rem', background: '#0f172a', color: 'white', padding: '5px 8px', borderRadius: '8px', fontWeight: 'bold' }}>PRO</span>}
+                    {item.is_multimodal && <span style={{ fontSize: '0.65rem', background: '#0f172a', color: 'white', padding: '4px 8px', borderRadius: '6px', fontWeight: 'bold' }}>PRO</span>}
                   </div>
-                  <h3 style={{ margin: '0 0 8px', fontSize: '1.3rem', fontWeight: '700', color: '#1e293b' }}>{item.title}</h3>
+                  <h3 style={{ margin: '0 0 8px', fontSize: '1.2rem', fontWeight: '700', color: '#1e293b' }}>{item.title}</h3>
                   <p style={{ color: '#64748b', fontSize: '0.9rem', marginBottom: '20px', flex: 1, lineHeight: '1.5' }}>{item.problem}</p>
-                  <div style={{ background: theme.solid, color: 'white', textAlign: 'center', padding: '10px', borderRadius: '12px', fontWeight: '700', fontSize: '0.9rem' }}>Use {item.model_name} →</div>
+                  <div style={{ background: theme.solid, color: 'white', textAlign: 'center', padding: '10px', borderRadius: '10px', fontWeight: '700', fontSize: '0.9rem' }}>Use {item.model_name} →</div>
                 </div>
               </Link>
             );
@@ -319,4 +314,3 @@ export default function Home({ tools, sidebarData }) {
     </div>
   );
 }
-
